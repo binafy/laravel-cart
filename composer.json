@@ -28,5 +28,12 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Binafy\\LaravelCart\\Providers\\LaravelCartServiceProvider"
+            ]
+        }
     }
 }
