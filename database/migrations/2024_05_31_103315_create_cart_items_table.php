@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cart_items', function (Blueprint $table) {
+        $table = config('laravel-cart.cart_items.table', 'cart_items');
+        $cartForeignName = config('laravel-cart.carts.foreign_id', 'cart_id');
+        $cartTableName = config('laravel-cart.carts.table', 'carts');
+
+        Schema::create($table, function (Blueprint $table) use ($cartForeignName, $cartTableName) {
             $table->id();
 
-            $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
+            $table->foreignId($cartForeignName)->constrained($cartTableName)->cascadeOnDelete();
             $table->morphs('itemable');
             $table->unsignedInteger('quantity');
 
@@ -27,6 +31,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cart_items');
+        $table = config('laravel-cart.cart_items.table', 'cart_items');
+
+        Schema::dropIfExists($table);
     }
 };

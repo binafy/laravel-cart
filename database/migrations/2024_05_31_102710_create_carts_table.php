@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         $tableName = config('laravel-cart.users.table', 'users');
+        $userColumn = config('laravel-cart.users.foreign_id', 'user_id');
+        $table = config('laravel-cart.carts.table', 'carts');
 
-        Schema::create('carts', function (Blueprint $table) use ($tableName) {
+        Schema::create($table, function (Blueprint $table) use ($tableName, $userColumn) {
             $table->id();
 
-            $table->foreignId('user_id')->constrained($tableName)->cascadeOnDelete();
+            $table->foreignId($userColumn)->constrained($tableName)->cascadeOnDelete();
 
             $table->timestamps();
         });
@@ -27,6 +29,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('carts');
+        $table = config('laravel-cart.carts.table', 'carts');
+
+        Schema::dropIfExists($table);
     }
 };
