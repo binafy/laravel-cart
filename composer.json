@@ -2,6 +2,8 @@
     "name": "binafy/laravel-cart",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "homepage": "https://github.com/binafy/laravel-cart",
     "autoload": {
         "psr-4": {
             "Binafy\\LaravelCart\\": "src/"
@@ -13,6 +15,5 @@
             "email": "milwad.dev@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {}
 }
