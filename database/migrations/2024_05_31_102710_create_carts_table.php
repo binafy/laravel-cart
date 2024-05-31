@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $tableName = config('laravel-cart.users.table', 'users');
-        $userColumn = config('laravel-cart.users.foreign_id', 'user_id');
+        $userTableName = config('laravel-cart.users.table', 'users');
+        $userForeignName = config('laravel-cart.users.foreign_id', 'user_id');
         $table = config('laravel-cart.carts.table', 'carts');
 
-        Schema::create($table, function (Blueprint $table) use ($tableName, $userColumn) {
+        Schema::create($table, function (Blueprint $table) use ($userTableName, $userForeignName) {
             $table->id();
 
-            $table->foreignId($userColumn)->constrained($tableName)->cascadeOnDelete();
+            $table->foreignId($userForeignName)->constrained($userTableName)->cascadeOnDelete();
 
             $table->timestamps();
         });
