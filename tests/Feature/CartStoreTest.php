@@ -7,6 +7,7 @@ use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
+use function PHPUnit\Framework\assertInstanceOf;
 
 /*
  * Use `RefreshDatabase` for delete migration data for each test.
@@ -25,6 +26,9 @@ test('can store product in cart', function () {
     ]);
 
     $cart->items()->save($cartItem);
+
+    // Assertions
+    assertInstanceOf($product::class, $cartItem->itemable()->first());
 
     // DB Assertions
     assertDatabaseCount('carts', 1);
