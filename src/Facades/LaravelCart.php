@@ -11,6 +11,6 @@ class LaravelCart extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return LaravelCart::class;
+        return \Binafy\LaravelCart\LaravelCart::class;
     }
 }
