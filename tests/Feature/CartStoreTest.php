@@ -74,3 +74,19 @@ test('can store product in cart with custom table name from config', function ()
         'quantity' => 1,
     ]);
 });
+
+test('can store product in cart with firstOrCreateWithItems scope', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    $product = Product::query()->create(['title' => 'Product 1']);
+
+    $cart = Cart::query()->firstOrCreateWithStoreItems($product, 1, $user->id);
+
+    // DB Assertions
+    assertDatabaseCount('carts', 1);
+    assertDatabaseCount('cart_items', 1);
+    assertDatabaseHas('cart_items', [
+        'itemable_id' => $product->id,
+        'itemable_type' => $product::class,
+        'quantity' => 1,
+    ]);
+});
