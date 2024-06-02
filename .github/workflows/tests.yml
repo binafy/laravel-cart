@@ -56,4 +56,4 @@ jobs:
                   composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
             - name: Execute tests
               run: vendor/bin/pest
-              
+
