@@ -2,6 +2,7 @@
 
 namespace Binafy\LaravelCart\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
@@ -23,11 +24,37 @@ class Cart extends Model
         $this->table = config('laravel-cart.carts.table', 'carts');
     }
 
+    // Relations
+
     /**
      * Relation one-to-many, CartItem model.
      */
     public function items(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(CartItem::class);
+    }
+
+    // Scopes
+
+    public function scopeFirstOrCreateWithStoreItems(
+        Builder $query,
+        Model $item,
+        int $quantity = 1,
+        int|null $userId = null
+    ): Builder {
+        if (is_null($userId)) {
+            $userId = auth()->id();
+        }
+
+        $cart = $query->firstOrCreate(['user_id' => $userId]);
+        $cartItem = new CartItem([
+            'itemable_id' => $item->id,
+            'itemable_type' => $item::class,
+            'quantity' => $quantity,
+        ]);
+
+        $cart->items()->save($cartItem);
+
+        return $query;
     }
 }
