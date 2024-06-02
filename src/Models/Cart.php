@@ -64,11 +64,11 @@ class Cart extends Model
     public function storeItems(array $items): Cart
     {
         foreach ($items as $item) {
-            $item['itemable_id'] = (int) $item['itemable_id'];
-            $item['itemable_type'] = get_class($item['itemable_type']);
+            $item['itemable_id'] = $item['itemable']->getKey();
+            $item['itemable_type'] = get_class($item['itemable']);
             $item['quantity'] = (int) $item['quantity'];
 
-            $this->items()->save($item);
+            $this->items()->create($item);
         }
 
         return $this;

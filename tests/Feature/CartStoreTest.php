@@ -90,3 +90,37 @@ test('can store product in cart with firstOrCreateWithItems scope', function () 
         'quantity' => 1,
     ]);
 });
+
+test('can store multiple products in cart', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    $product1 = Product::query()->create(['title' => 'Product 1']);
+    $product2 = Product::query()->create(['title' => 'Product 1']);
+    $product3 = Product::query()->create(['title' => 'Product 1']);
+
+    $items = [
+        [
+            'itemable' => $product1,
+            'quantity' => 2,
+        ],
+        [
+            'itemable' => $product2,
+            'quantity' => 1,
+        ],
+        [
+            'itemable' => $product3,
+            'quantity' => 5,
+        ],
+    ];
+
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+    $cart->storeItems($items);
+
+    // DB Assertions
+    assertDatabaseCount('carts', 1);
+    assertDatabaseCount('cart_items', 3);
+    assertDatabaseHas('cart_items', [
+        'itemable_id' => $product1->id,
+        'itemable_type' => $product1::class,
+        'quantity' => 2,
+    ]);
+});
