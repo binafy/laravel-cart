@@ -57,4 +57,20 @@ class Cart extends Model
 
         return $query;
     }
+
+    /**
+     * Store multiple items.
+     */
+    public function storeItems(array $items): Cart
+    {
+        foreach ($items as $item) {
+            $item['itemable_id'] = (int) $item['itemable_id'];
+            $item['itemable_type'] = get_class($item['itemable_type']);
+            $item['quantity'] = (int) $item['quantity'];
+
+            $this->items()->save($item);
+        }
+
+        return $this;
+    }
 }
