@@ -2,8 +2,6 @@
 
 namespace Binafy\LaravelCart\Providers;
 
-use Binafy\LaravelCart\LaravelCart;
-use Closure;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelCartServiceProvider extends ServiceProvider
@@ -22,6 +20,9 @@ class LaravelCartServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app->bind('laravel-cart', fn ($app) => new LaravelCart);
+        // Publish Config file
+        $this->publishes([
+            __DIR__ . '/../../config/laravel-cart.php' => config_path('laravel-cart.php'),
+        ], 'laravel-cart-config');
     }
 }
