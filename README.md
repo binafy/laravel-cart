@@ -123,3 +123,25 @@ $items = [
 $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->storeItems($items);
 ```
+
+<a name="contributors"></a>
+## Contributors
+
+Thanks to all the people who contributed. [Contributors](https://github.com/binafy/laravel-cart/graphs/contributors).
+
+<a href="https://github.com/binafy/laravel-cart/graphs/contributors"><img src="https://opencollective.com/laravel-cart/contributors.svg?width=890&button=false" /></a>
+
+<a name="security"></a>
+## Security
+
+If you discover any security-related issues, please email `binafy23@gmail.com` instead of using the issue tracker.
+
+<a name="chanelog"></a>
+## Changelog
+
+The changelog can be found in the `CHANGELOG.md` file of the GitHub repository. It lists the changes, bug fixes, and improvements made to each version of the Laravel User Monitoring package.
+
+<a name="license"></a>
+## License
+
+The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-cart/blob/0.x-dev/LICENSE) for more information.
