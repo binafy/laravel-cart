@@ -20,3 +20,55 @@ Laravel Card is designed to be highly customizable and flexible, making it easy 
 - Recurring payment and subscription management
 - Robust validation and error handling
 - Highly customizable and flexible architecture
+
+<a name="installation"></a>
+## Installation
+
+You can install the package with Composer:
+
+```bash
+composer require binafy/laravel-cart
+```
+
+<a name="publish"></a>
+## Publish
+
+If you want to publish a config file you can use this command:
+
+```shell
+php artisan vendor:publish --tag="laravel-cart-config"
+```
+
+<a name="usage"></a>
+## Usage
+
+<a name="store-cart"></a>
+### Store Cart
+
+For storing a new cart, you can use `Cart` model:
+
+```php
+use \Binafy\LaravelCart\Models\Cart;
+
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+```
+
+<a name="store-items-for-a-cart"></a>
+### Store Items For a Cart
+
+If you want to store items for cart, first you need to create a cart and attach items to cart:
+
+```php
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+$cartItem = new CartItem([
+    'itemable_id' => $itemable->id,
+    'itemable_type' => $itemable::class,
+    'quantity' => 1,
+]);
+
+$cart->items()->save($cartItem);
+```
+
+If you may to access the items of one cart, you can use `items` relation that exists in Cart model.
+
+> There is no need to use any Interface or something for itemable.   
