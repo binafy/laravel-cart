@@ -73,6 +73,7 @@ If you may to access the items of one cart, you can use `items` relation that ex
 
 > There is no need to use any Interface or something for itemable.   
 
+<a name="access-itemable"></a>
 ### Access Itemable
 
 If you want to access to itemable in `CartItem`, you can use `itemable` relation:
@@ -85,4 +86,15 @@ $cartItem = new CartItem([
 ]);
 
 $cartItem->itemable()->first(); // Return Model Instance
+```
+
+<a name="create-cart-with-storing-items"><a>
+### Create Cart With Storing Items
+
+```php
+Cart::query()->firstOrCreateWithStoreItems(
+    item: $product,
+    quantity: 1,
+    userId: $user->id
+);
 ```
