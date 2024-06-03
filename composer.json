@@ -1,9 +1,38 @@
 {
     "name": "binafy/laravel-cart",
+    "description": "Laravel Card is designed to be highly customizable and flexible, making it easy to adapt to your specific use case.",
+    "keywords": [
+        "binafy",
+        "milwad",
+        "laravel",
+        "framework",
+        "cart",
+        "laravel-cart",
+        "laravel cart",
+        "laravel cart package",
+        "laravel package",
+        "laravel-cart-shop",
+        "laravel-shop",
+        "laravel e-commerce",
+        "laravel basket"
+    ],
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "homepage": "https://github.com/binafy/laravel-cart",
+    "authors": [
+        {
+            "name": "milwad-dev",
+            "email": "milwad.dev@gmail.com",
+            "role": "author",
+            "homepage": "https://github.com/milwad-dev"
+        },
+        {
+            "name": "binafy",
+            "role": "owner",
+            "homepage": "https://github.com/binafy"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Binafy\\LaravelCart\\": "src/"
@@ -14,12 +43,6 @@
             "Tests\\": "tests"
         }
     },
-    "authors": [
-        {
-            "name": "Milwad",
-            "email": "milwad.dev@gmail.com"
-        }
-    ],
     "require": {
         "php": "^8.0",
         "laravel/framework": "^9.0|^10.0|^11.0"
@@ -33,6 +56,10 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage-html ./coverage"
     },
     "extra": {
         "laravel": {
