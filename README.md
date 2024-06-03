@@ -98,3 +98,28 @@ Cart::query()->firstOrCreateWithStoreItems(
     userId: $user->id
 );
 ```
+
+<a name="store-multiple-items"></a>
+### Store multiple items
+
+If you may to store multiple items for a cart, you can use `storeItems` method:
+
+```php
+$items = [
+    [
+        'itemable' => $product1,
+        'quantity' => 2,
+    ],
+    [
+        'itemable' => $product2,
+        'quantity' => 1,
+    ],
+    [
+        'itemable' => $product3,
+        'quantity' => 5,
+    ],
+];
+
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+$cart->storeItems($items);
+```
