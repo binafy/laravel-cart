@@ -72,3 +72,17 @@ $cart->items()->save($cartItem);
 If you may to access the items of one cart, you can use `items` relation that exists in Cart model.
 
 > There is no need to use any Interface or something for itemable.   
+
+### Access Itemable
+
+If you want to access to itemable in `CartItem`, you can use `itemable` relation:
+
+```php
+$cartItem = new CartItem([
+    'itemable_id' => $itemable->id,
+    'itemable_type' => $itemable::class,
+    'quantity' => 1,
+]);
+
+$cartItem->itemable()->first(); // Return Model Instance
+```
