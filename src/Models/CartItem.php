@@ -30,4 +30,12 @@ class CartItem extends Model
     {
         return $this->morphTo();
     }
+
+    /**
+     * Relation one-to-many, Cart model.
+     */
+    public function cart(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Cart::class, 'cart_id');
+    }
 }
