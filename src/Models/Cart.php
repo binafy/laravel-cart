@@ -15,6 +15,13 @@ class Cart extends Model
     protected $fillable = ['user_id'];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var string[]
+     */
+    protected $with = ['items'];
+
+    /**
      * Create a new instance of the model.
      */
     public function __construct(array $attributes = [])
