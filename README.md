@@ -51,7 +51,7 @@ For convenience, you can use this command to publish config, migration, and ... 
 php artisan vendor:publish --provider="Binafy\LaravelCart\Providers\LaravelCartServiceProvider"
 ```
 
-After publishing, run the `php artisan migrate` command.[
+After publishing, run the `php artisan migrate` command.
 
 <a name="usage"></a>
 ## Usage
