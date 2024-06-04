@@ -11,5 +11,5 @@ class Product extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['title'];
+    protected $fillable = ['title', 'price'];
 }

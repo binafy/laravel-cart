@@ -142,3 +142,40 @@ test('can store multiple products in cart', function () {
         'quantity' => 2,
     ]);
 });
+
+test('get correct price with calculated quantity', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    $product1 = Product::query()->create(['title' => 'Product 1', 'price' => 15000]);
+    $product2 = Product::query()->create(['title' => 'Product 1', 'price' => 25000]);
+    $product3 = Product::query()->create(['title' => 'Product 1', 'price' => 35000]);
+
+    $items = [
+        [
+            'itemable' => $product1,
+            'quantity' => 2,
+        ],
+        [
+            'itemable' => $product2,
+            'quantity' => 1,
+        ],
+        [
+            'itemable' => $product3,
+            'quantity' => 5,
+        ],
+    ];
+
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+    $cart->storeItems($items);
+
+    // Assertions
+    \PHPUnit\Framework\assertEquals(230000, $cart->calculatedPriceByQuantity());
+
+    // DB Assertions
+    assertDatabaseCount('carts', 1);
+    assertDatabaseCount('cart_items', 3);
+    assertDatabaseHas('cart_items', [
+        'itemable_id' => $product1->id,
+        'itemable_type' => $product1::class,
+        'quantity' => 2,
+    ]);
+});
