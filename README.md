@@ -33,15 +33,29 @@ composer require binafy/laravel-cart
 <a name="publish"></a>
 ## Publish
 
-If you want to publish a config file you can use this command:
+If you want to publish a config file, you can use this command:
 
 ```shell
 php artisan vendor:publish --tag="laravel-cart-config"
 ```
 
+If you want to publish the migrations, you can use this command:
+
+```shell
+php artisan vendor:publish --tag="laravel-cart-migrations"
+```
+
+For convenience, you can use this command to publish config, migration, and ... files:
+
+```shell
+php artisan vendor:publish --provider="Binafy\LaravelCart\Providers\LaravelCartServiceProvider"
+```
+
+After publishing, run the `php artisan migrate` command.[
+
 <a name="usage"></a>
 ## Usage
-
+]()
 <a name="store-cart"></a>
 ### Store Cart
 
