@@ -20,9 +20,14 @@ class LaravelCartServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Publish Config file
+        // Publish Config
         $this->publishes([
             __DIR__ . '/../../config/laravel-cart.php' => config_path('laravel-cart.php'),
         ], 'laravel-cart-config');
+
+        // Publish Migrations
+        $this->publishes([
+            __DIR__ . '/../../database/migrations' => database_path('migrations'),
+        ], 'laravel-cart-migrations');
     }
 }
