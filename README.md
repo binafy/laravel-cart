@@ -55,7 +55,7 @@ After publishing, run the `php artisan migrate` command.[
 
 <a name="usage"></a>
 ## Usage
-]()
+
 <a name="store-cart"></a>
 ### Store Cart
 
