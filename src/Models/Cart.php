@@ -58,6 +58,21 @@ class Cart extends Model
         return $query;
     }
 
+    // Methods
+
+    /**
+     * Calculate price by quantity of items.
+     */
+    public function calculatedPriceByQuantity(): int
+    {
+        $totalPrice = 0;
+        foreach ($this->items()->get() as $item) {
+            $totalPrice += (int) $item->quantity * (int) $item->itemable->price;
+        }
+
+        return $totalPrice;
+    }
+
     /**
      * Store multiple items.
      */
