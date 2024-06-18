@@ -1,5 +1,7 @@
 # Laravel Cart
 
+<img src="https://banners.beyondco.de/Laravel%20Cart.png?theme=light&packageManager=composer+require&packageName=binafy%2Flaravel-cart&pattern=autumn&style=style_1&description=customizable+package+for+adding+shopping+cart+functionality+to+Laravel+applications&md=1&showWatermark=0&fontSize=100px&images=https%3A%2F%2Flaravel.com%2Fimg%2Flogomark.min.svg" alt="binafy-laravel-cart" />
+
 [![PHP Version Require](http://poser.pugx.org/binafy/laravel-cart/require/php)](https://packagist.org/packages/binafy/laravel-cart)
 [![Latest Stable Version](http://poser.pugx.org/binafy/laravel-cart/v)](https://packagist.org/packages/binafy/laravel-cart)
 [![Total Downloads](http://poser.pugx.org/binafy/laravel-cart/downloads)](https://packagist.org/packages/binafy/laravel-cart)
