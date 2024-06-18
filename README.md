@@ -11,9 +11,7 @@
 <a name="introduction"></a>
 ## Introduction
 
-Easily integrate credit card and payment processing functionality into your Laravel application with Laravel Card. This package provides a simple and secure way to handle card payments, subscriptions, and transactions, allowing you to focus on building your application's core features.
-
-Laravel Card is designed to be highly customizable and flexible, making it easy to adapt to your specific use case. Whether you're building an e-commerce platform, a subscription-based service, or a donation system, this package provides a solid foundation for handling card payments in your Laravel application.
+The `Laravel Cart` is a highly customizable and flexible package that integrates basket functionality into your Laravel application. It simplifies storing and managing cart items, supporting multiple item types and quantities. It is ideal for e-commerce platforms to create carts, attach items, and manage them efficiently. Installation is straightforward via Composer, and it offers robust features like secure item storage, easy cart manipulation, and seamless integration with your existing Laravel app.
 
 ## Features:
 
