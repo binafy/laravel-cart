@@ -95,4 +95,30 @@ class Cart extends Model
 
         return $this;
     }
+
+    /**
+     * Remove a single item from the cart
+     */
+    public function removeItem(Model $item): Cart
+    {
+        $itemToDelete = $this->items()->find($item->id);
+
+        if($itemToDelete){
+            $itemToDelete->destroy($item->id);
+        } 
+
+        return $this;
+    }
+
+    /**
+     * Remove every item from the cart
+     */
+    public function emptyCart() : Cart
+    {
+        foreach($this->items()->get() as $item){
+            $this->removeItem($item);
+        }
+
+        return $this;
+    }
 }
