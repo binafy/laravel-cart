@@ -138,6 +138,54 @@ $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->storeItems($items);
 ```
 
+### Delete Item From Cart
+
+If you may to delete an item for a cart, you can use `removeItem` method:
+
+```php
+$items = [
+    [
+        'itemable' => $product1,
+        'quantity' => 2,
+    ],
+    [
+        'itemable' => $product2,
+        'quantity' => 1,
+    ],
+    [
+        'itemable' => $product3,
+        'quantity' => 5,
+    ],
+];
+
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+$cart->removeItem($product1);
+```
+
+### Delete All Items From Cart
+
+If you may to delete all items from a cart, you can use `emptyCart` method:
+
+```php
+$items = [
+    [
+        'itemable' => $product1,
+        'quantity' => 2,
+    ],
+    [
+        'itemable' => $product2,
+        'quantity' => 1,
+    ],
+    [
+        'itemable' => $product3,
+        'quantity' => 5,
+    ],
+];
+
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+$cart->emptyCart();
+```
+
 <a name="contributors"></a>
 ## Contributors
 
