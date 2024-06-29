@@ -47,7 +47,7 @@ class Cart extends Model
         Builder $query,
         Model $item,
         int $quantity = 1,
-        int|null $userId = null
+        ?int $userId = null
     ): Builder {
         if (is_null($userId)) {
             $userId = auth()->id();
