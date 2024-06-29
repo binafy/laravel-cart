@@ -101,11 +101,11 @@ class Cart extends Model
      */
     public function removeItem(Model $item): Cart
     {
-        $itemToDelete = $this->items()->find($item->id);
+        $itemToDelete = $this->items()->find($item->getKey());
 
-        if($itemToDelete){
-            $itemToDelete->destroy($item->id);
-        } 
+        if ($itemToDelete) {
+            $itemToDelete->delete();
+        }
 
         return $this;
     }
