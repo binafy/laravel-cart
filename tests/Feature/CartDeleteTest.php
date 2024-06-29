@@ -1,14 +1,11 @@
 <?php
 
 use Binafy\LaravelCart\Models\Cart;
-use Binafy\LaravelCart\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
+
 use function Pest\Laravel\assertDatabaseCount;
-use function Pest\Laravel\assertDatabaseHas;
-use function PHPUnit\Framework\assertInstanceOf;
 
 /*
  * Use `RefreshDatabase` for delete migration data for each test.
@@ -59,7 +56,7 @@ test('can remove an item from the cart', function () {
     assertDatabaseCount('cart_items', 2);
 });
 
-test('can empty the cart', function() {
+test('can empty the cart', function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product1 = Product::query()->create(['title' => 'Product 1']);
     $product2 = Product::query()->create(['title' => 'Product 2']);

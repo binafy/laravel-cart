@@ -11,8 +11,8 @@ class LaravelCartServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-        $this->mergeConfigFrom(__DIR__ . '/../../config/laravel-cart.php', 'laravel-cart');
+        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
+        $this->mergeConfigFrom(__DIR__.'/../../config/laravel-cart.php', 'laravel-cart');
     }
 
     /**
@@ -22,12 +22,12 @@ class LaravelCartServiceProvider extends ServiceProvider
     {
         // Publish Config
         $this->publishes([
-            __DIR__ . '/../../config/laravel-cart.php' => config_path('laravel-cart.php'),
+            __DIR__.'/../../config/laravel-cart.php' => config_path('laravel-cart.php'),
         ], 'laravel-cart-config');
 
         // Publish Migrations
         $this->publishes([
-            __DIR__ . '/../../database/migrations' => database_path('migrations'),
+            __DIR__.'/../../database/migrations' => database_path('migrations'),
         ], 'laravel-cart-migrations');
     }
 }
