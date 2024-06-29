@@ -65,6 +65,16 @@ class Cart extends Model
         return $query;
     }
 
+    /**
+     * Scope remove item from cart.
+     */
+    public function scopeRemoveItem(Builder $query, Model $item): Builder
+    {
+        $this->items()->delete($item->getKey());
+
+        return $query;
+    }
+
     // Methods
 
     /**
