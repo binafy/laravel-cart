@@ -113,11 +113,9 @@ class Cart extends Model
     /**
      * Remove every item from the cart
      */
-    public function emptyCart() : Cart
+    public function emptyCart(): Cart
     {
-        foreach($this->items()->get() as $item){
-            $this->removeItem($item);
-        }
+        $this->items()->delete();
 
         return $this;
     }
