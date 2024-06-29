@@ -59,6 +59,7 @@
         }
     },
     "scripts": {
+        "pint": "vendor/bin/pint",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage-html ./coverage"
     },
