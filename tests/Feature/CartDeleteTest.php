@@ -41,9 +41,11 @@ test('can remove an item from the cart', function () {
         ],
     ];
 
+    // Store items to cart
     $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
     $cart->storeItems($items);
 
+    // Delete Item from cart
     $cart->removeItem($product1);
 
     // DB Assertions
@@ -55,8 +57,6 @@ test('can remove an item from the cart', function () {
 
     $cart->removeItem($product1);
     assertDatabaseCount('cart_items', 2);
-
-    // assertDatabaseCount('carts', 1);
 });
 
 test('can empty the cart', function() {
@@ -85,12 +85,13 @@ test('can empty the cart', function() {
         ],
     ];
 
+    // Store items to cart
     $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
     $cart->storeItems($items);
 
-
     assertDatabaseCount('cart_items', 4);
+
+    // Remove all items from cart
     $cart->emptyCart();
     assertDatabaseCount('cart_items', 0);
-
 });
