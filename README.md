@@ -8,6 +8,23 @@
 [![License](http://poser.pugx.org/binafy/laravel-cart/license)](https://packagist.org/packages/binafy/laravel-cart)
 [![Passed Tests](https://github.com/binafy/laravel-cart/actions/workflows/tests.yml/badge.svg)](https://github.com/binafy/laravel-cart/actions/workflows/tests.yml)
 
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Publish](#publish)
+- [Usage](#usage)
+    - [Configuration](#configuration)
+    - [Store Cart](#store-cart)
+    - [Store Items For a Cart](#store-items-for-a-cart)
+    - [Access Itemable](#access-itemable)
+    - [Create Cart With Storing Items](#create-cart-with-storing-items)
+    - [Store multiple items](#store-multiple-items)
+    - [Delete Item From Cart](#delete-item-from-cart)
+    - [Delete All Items From Cart](#delete-all-items-from-cart)
+- [Contributors](#contributors)
+- [Security](#security)
+- [Changelog](#changelog)
+- [License](#license)
+
 <a name="introduction"></a>
 ## Introduction
 
@@ -138,6 +155,7 @@ $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->storeItems($items);
 ```
 
+<a name="delete-item-from-cart"></a>
 ### Delete Item From Cart
 
 If you may to delete an item for a cart, you can use `removeItem` method:
@@ -162,6 +180,7 @@ $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->removeItem($product1);
 ```
 
+<a name="delete-all-items-from-cart"></a>
 ### Delete All Items From Cart
 
 If you may to delete all items from a cart, you can use `emptyCart` method:
