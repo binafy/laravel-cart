@@ -2,6 +2,7 @@
 
 namespace Binafy\LaravelCart\Models;
 
+use Binafy\LaravelCart\Cartable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,6 +44,9 @@ class Cart extends Model
 
     // Scopes
 
+    /**
+     * @throws \Exception
+     */
     public function scopeFirstOrCreateWithStoreItems(
         Builder $query,
         Model $item,
@@ -52,10 +56,13 @@ class Cart extends Model
         if (is_null($userId)) {
             $userId = auth()->id();
         }
+        if (! $item instanceof Cartable) {
+            throw new \Exception('The item must be an instance of Cartable');
+        }
 
         $cart = $query->firstOrCreate(['user_id' => $userId]);
         $cartItem = new CartItem([
-            'itemable_id' => $item->id,
+            'itemable_id' => $item->getKey(),
             'itemable_type' => $item::class,
             'quantity' => $quantity,
         ]);
@@ -74,7 +81,7 @@ class Cart extends Model
     {
         $totalPrice = 0;
         foreach ($this->items()->get() as $item) {
-            $totalPrice += (int) $item->quantity * (int) $item->itemable->price;
+            $totalPrice += (int) $item->quantity * (int) $item->itemable->getPrice();
         }
 
         return $totalPrice;
