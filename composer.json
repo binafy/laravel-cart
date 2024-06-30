@@ -49,7 +49,8 @@
     },
     "require-dev": {
         "pestphp/pest-plugin-laravel": "^1.4.0|^2.0.0",
-        "orchestra/testbench": "^7.0|^8.0|^9.0"
+        "orchestra/testbench": "^7.0|^8.0|^9.0",
+        "laravel/pint": "^1.5"
     },
     "config": {
         "sort-packages": true,
@@ -58,6 +59,7 @@
         }
     },
     "scripts": {
+        "pint": "vendor/bin/pint",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage-html ./coverage"
     },

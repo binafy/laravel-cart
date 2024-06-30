@@ -47,7 +47,7 @@ class Cart extends Model
         Builder $query,
         Model $item,
         int $quantity = 1,
-        int|null $userId = null
+        ?int $userId = null
     ): Builder {
         if (is_null($userId)) {
             $userId = auth()->id();
@@ -92,6 +92,30 @@ class Cart extends Model
 
             $this->items()->create($item);
         }
+
+        return $this;
+    }
+
+    /**
+     * Remove a single item from the cart
+     */
+    public function removeItem(Model $item): Cart
+    {
+        $itemToDelete = $this->items()->find($item->getKey());
+
+        if ($itemToDelete) {
+            $itemToDelete->delete();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove every item from the cart
+     */
+    public function emptyCart(): Cart
+    {
+        $this->items()->delete();
 
         return $this;
     }
