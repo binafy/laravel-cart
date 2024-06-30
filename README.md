@@ -15,7 +15,7 @@ The `Laravel Cart` is a highly customizable and flexible package that integrates
 
 ## Features:
 
-- Secure card information storage and management
+- Secure cart information storage and management
 - Support for multiple payment gateways
 - Recurring payment and subscription management
 - Robust validation and error handling
