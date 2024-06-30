@@ -73,6 +73,11 @@ After publishing, run the `php artisan migrate` command.
 <a name="usage"></a>
 ## Usage
 
+<a name="configuration"></a>
+### Configuration
+
+You can config the `Laravel Cart` with `laravel-cart.php` config that exists in `config` folder.
+
 <a name="store-cart"></a>
 ### Store Cart
 
