@@ -104,6 +104,20 @@ class Cart extends Model
     }
 
     /**
+     * Store cart item in cart.
+     */
+    public function storeItem(array $item): Cart
+    {
+        $item['itemable_id'] = $item['itemable']->getKey();
+        $item['itemable_type'] = get_class($item['itemable']);
+        $item['quantity'] = (int) $item['quantity'];
+
+        $this->items()->create($item);
+
+        return $this;
+    }
+
+    /**
      * Remove a single item from the cart
      */
     public function removeItem(Model $item): Cart

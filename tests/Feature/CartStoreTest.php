@@ -9,6 +9,7 @@ use Tests\SetUp\Models\User;
 
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
+use function Pest\Laravel\assertDatabaseMissing;
 use function PHPUnit\Framework\assertInstanceOf;
 
 /*
@@ -180,3 +181,27 @@ test('get correct price with calculated quantity', function () {
         'quantity' => 2,
     ]);
 });
+
+test('can not store product in cart when item is not instance of cartable', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    $product1 = new class extends \Illuminate\Database\Eloquent\Model
+    {
+
+    };
+
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+
+    $item['itemable'] = $product1;
+    $item['quantity'] = 2;
+
+    $cart->storeItem($item);
+
+    // DB Assertions
+    assertDatabaseCount('carts', 1);
+    assertDatabaseCount('cart_items', 0);
+    assertDatabaseMissing('cart_items', [
+        'itemable_id' => $product1->id,
+        'itemable_type' => $product1::class,
+        'quantity' => 2,
+    ]);
+})->expectExceptionMessage('The item must be an instance of Cartable');
