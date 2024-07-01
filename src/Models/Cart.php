@@ -109,7 +109,7 @@ class Cart extends Model
             $item['itemable_type'] = get_class($item['itemable']);
             $item['quantity'] = (int) $item['quantity'];
 
-            if ($item['itemable_type'] instanceof Cartable) {
+            if ($item['itemable'] instanceof Cartable) {
                 $this->items()->create($item);
             } else {
                 throw new \RuntimeException('The item must be an instance of Cartable');
