@@ -2,6 +2,7 @@
 
 namespace Binafy\LaravelCart\Models;
 
+use Binafy\LaravelCart\Cartable;
 use Illuminate\Database\Eloquent\Model;
 
 class CartItem extends Model
@@ -21,6 +22,26 @@ class CartItem extends Model
         parent::__construct($attributes);
 
         $this->table = config('laravel-cart.cart_items.table', 'cart_items');
+    }
+
+    /**
+     * Bootstrap the model and its traits.
+     */
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (! $model->itemable_type instanceof Cartable) {
+                throw new \Exception('The item must be an instance of Cartable');
+            }
+        });
+
+        static::updating(function ($model) {
+            if (! $model->itemable_type instanceof Cartable) {
+                throw new \Exception('The item must be an instance of Cartable');
+            }
+        });
     }
 
     /**
