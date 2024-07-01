@@ -111,6 +111,8 @@ class Cart extends Model
 
             if ($item['itemable_type'] instanceof Cartable) {
                 $this->items()->create($item);
+            } else {
+                throw new \RuntimeException('The item must be an instance of Cartable');
             }
         } else {
             $this->items()->save($item);
