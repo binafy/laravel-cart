@@ -108,9 +108,12 @@ class Cart extends Model
             $item['itemable_id'] = $item['itemable']->getKey();
             $item['itemable_type'] = get_class($item['itemable']);
             $item['quantity'] = (int) $item['quantity'];
+
+            $this->items()->create($item);
+        } else {
+            $this->items()->save($item);
         }
 
-        $this->items()->create($item);
 
         return $this;
     }
