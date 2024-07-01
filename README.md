@@ -8,18 +8,42 @@
 [![License](http://poser.pugx.org/binafy/laravel-cart/license)](https://packagist.org/packages/binafy/laravel-cart)
 [![Passed Tests](https://github.com/binafy/laravel-cart/actions/workflows/tests.yml/badge.svg)](https://github.com/binafy/laravel-cart/actions/workflows/tests.yml)
 
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Publish](#publish)
+- [Usage](#usage)
+    - [Configuration](#configuration)
+    - [Store Cart](#store-cart)
+    - [Store Items For a Cart](#store-items-for-a-cart)
+    - [Access Itemable](#access-itemable)
+    - [Create Cart With Storing Items](#create-cart-with-storing-items)
+    - [Store multiple items](#store-multiple-items)
+    - [Delete Item From Cart](#delete-item-from-cart)
+    - [Delete All Items From Cart](#delete-all-items-from-cart)
+- [Contributors](#contributors)
+- [Security](#security)
+- [Changelog](#changelog)
+- [License](#license)
+
 <a name="introduction"></a>
 ## Introduction
 
 The `Laravel Cart` is a highly customizable and flexible package that integrates basket functionality into your Laravel application. It simplifies storing and managing cart items, supporting multiple item types and quantities. It is ideal for e-commerce platforms to create carts, attach items, and manage them efficiently. Installation is straightforward via Composer, and it offers robust features like secure item storage, easy cart manipulation, and seamless integration with your existing Laravel app.
 
-## Features:
+<a name="features"></a>
+## Features
 
-- Secure cart information storage and management
-- Support for multiple payment gateways
-- Recurring payment and subscription management
-- Robust validation and error handling
-- Highly customizable and flexible architecture
+The `Laravel Cart` package is an ideal choice for developers looking to implement a reliable and scalable cart system in their Laravel-based e-commerce applications:
+
+- Item Management: Easily add, update, and remove items from the cart with an intuitive API.
+- Attributes and Options: Define custom attributes and options for cart items to handle variations like size and color.
+- Tax Calculation: Built-in support for tax calculations, enabling automatic tax application based on predefined rules.
+- Discounts and Coupons: Integrate discount codes and coupon functionalities to offer promotions and special offers to customers.
+- Session and Database Storage: Flexible storage options allowing carts to be stored in sessions or the database.
+- Events and Listeners: Hook into various cart events with listeners to perform actions like logging or triggering additional business logic.
+- Customizable: Extend and customize the core functionalities to meet specific business requirements.
+- Easy Integration: Designed to integrate seamlessly with existing Laravel projects, providing a smooth development experience.
 
 <a name="installation"></a>
 ## Installation
@@ -55,6 +79,11 @@ After publishing, run the `php artisan migrate` command.
 
 <a name="usage"></a>
 ## Usage
+
+<a name="configuration"></a>
+### Configuration
+
+You can config the `Laravel Cart` with `laravel-cart.php` config that exists in `config` folder.
 
 <a name="store-cart"></a>
 ### Store Cart
@@ -138,6 +167,7 @@ $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->storeItems($items);
 ```
 
+<a name="delete-item-from-cart"></a>
 ### Delete Item From Cart
 
 If you may to delete an item for a cart, you can use `removeItem` method:
@@ -162,6 +192,7 @@ $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->removeItem($product1);
 ```
 
+<a name="delete-all-items-from-cart"></a>
 ### Delete All Items From Cart
 
 If you may to delete all items from a cart, you can use `emptyCart` method:
