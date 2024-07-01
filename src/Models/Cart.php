@@ -93,11 +93,7 @@ class Cart extends Model
     public function storeItems(array $items): Cart
     {
         foreach ($items as $item) {
-            $item['itemable_id'] = $item['itemable']->getKey();
-            $item['itemable_type'] = get_class($item['itemable']);
-            $item['quantity'] = (int) $item['quantity'];
-
-            $this->items()->create($item);
+            $this->storeItem($item);
         }
 
         return $this;
@@ -106,11 +102,13 @@ class Cart extends Model
     /**
      * Store cart item in cart.
      */
-    public function storeItem(array $item): Cart
+    public function storeItem(Model|array $item): Cart
     {
-        $item['itemable_id'] = $item['itemable']->getKey();
-        $item['itemable_type'] = get_class($item['itemable']);
-        $item['quantity'] = (int) $item['quantity'];
+        if (is_array($item)) {
+            $item['itemable_id'] = $item['itemable']->getKey();
+            $item['itemable_type'] = get_class($item['itemable']);
+            $item['quantity'] = (int) $item['quantity'];
+        }
 
         $this->items()->create($item);
 
