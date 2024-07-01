@@ -9,6 +9,7 @@
 [![Passed Tests](https://github.com/binafy/laravel-cart/actions/workflows/tests.yml/badge.svg)](https://github.com/binafy/laravel-cart/actions/workflows/tests.yml)
 
 - [Introduction](#introduction)
+- [Features](#features)
 - [Installation](#installation)
 - [Publish](#publish)
 - [Usage](#usage)
@@ -30,13 +31,19 @@
 
 The `Laravel Cart` is a highly customizable and flexible package that integrates basket functionality into your Laravel application. It simplifies storing and managing cart items, supporting multiple item types and quantities. It is ideal for e-commerce platforms to create carts, attach items, and manage them efficiently. Installation is straightforward via Composer, and it offers robust features like secure item storage, easy cart manipulation, and seamless integration with your existing Laravel app.
 
-## Features:
+<a name="features"></a>
+## Features
 
-- Secure card information storage and management
-- Support for multiple payment gateways
-- Recurring payment and subscription management
-- Robust validation and error handling
-- Highly customizable and flexible architecture
+The `Laravel Cart` package is an ideal choice for developers looking to implement a reliable and scalable cart system in their Laravel-based e-commerce applications:
+
+- Item Management: Easily add, update, and remove items from the cart with an intuitive API.
+- Attributes and Options: Define custom attributes and options for cart items to handle variations like size and color.
+- Tax Calculation: Built-in support for tax calculations, enabling automatic tax application based on predefined rules.
+- Discounts and Coupons: Integrate discount codes and coupon functionalities to offer promotions and special offers to customers.
+- Session and Database Storage: Flexible storage options allowing carts to be stored in sessions or the database.
+- Events and Listeners: Hook into various cart events with listeners to perform actions like logging or triggering additional business logic.
+- Customizable: Extend and customize the core functionalities to meet specific business requirements.
+- Easy Integration: Designed to integrate seamlessly with existing Laravel projects, providing a smooth development experience.
 
 <a name="installation"></a>
 ## Installation
