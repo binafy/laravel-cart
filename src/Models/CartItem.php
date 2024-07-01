@@ -2,8 +2,11 @@
 
 namespace Binafy\LaravelCart\Models;
 
+use Binafy\LaravelCart\Observers\CartItemObserve;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 
+#[ObservedBy([CartItemObserve::class])]
 class CartItem extends Model
 {
     /**

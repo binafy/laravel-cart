@@ -2,9 +2,10 @@
 
 namespace Tests\SetUp\Models;
 
+use Binafy\LaravelCart\Cartable;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Product extends Model implements Cartable
 {
     /**
      * Fillable columns.
@@ -12,4 +13,12 @@ class Product extends Model
      * @var string[]
      */
     protected $fillable = ['title', 'price'];
+
+    /**
+     * Get the correct price.
+     */
+    public function getPrice(): int
+    {
+        return $this->price;
+    }
 }
