@@ -184,14 +184,11 @@ test('get correct price with calculated quantity', function () {
 
 test('can not store product in cart when item is not instance of cartable', function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
-    $product1 = new class extends \Illuminate\Database\Eloquent\Model
-    {
-
-    };
+    $user2 = User::query()->create(['name' => 'Binafy', 'email' => 'binafy23@gmail.comd']);
 
     $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 
-    $item['itemable'] = $product1;
+    $item['itemable'] = $user2;
     $item['quantity'] = 2;
 
     $cart->storeItem($item);
@@ -200,8 +197,8 @@ test('can not store product in cart when item is not instance of cartable', func
     assertDatabaseCount('carts', 1);
     assertDatabaseCount('cart_items', 0);
     assertDatabaseMissing('cart_items', [
-        'itemable_id' => $product1->id,
-        'itemable_type' => $product1::class,
+        'itemable_id' => $user2->id,
+        'itemable_type' => $user2::class,
         'quantity' => 2,
     ]);
 })->expectExceptionMessage('The item must be an instance of Cartable');

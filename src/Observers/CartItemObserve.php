@@ -13,7 +13,7 @@ class CartItemObserve
     public function creating(CartItem $cartItem): void
     {
         if (! new $cartItem->itemable_type instanceof Cartable) {
-            throw new \Exception('The item must be an instance of Cartable');
+            throw new \RuntimeException('The item must be an instance of Cartable');
         }
     }
 
@@ -23,7 +23,7 @@ class CartItemObserve
     public function updating(CartItem $cartItem): void
     {
         if (! new $cartItem->itemable_type instanceof Cartable) {
-            throw new \Exception('The item must be an instance of Cartable');
+            throw new \RuntimeException('The item must be an instance of Cartable');
         }
     }
 
@@ -33,7 +33,7 @@ class CartItemObserve
     public function saving(CartItem $cartItem): void
     {
         if (! new $cartItem->itemable_type instanceof Cartable) {
-            throw new \Exception('The item must be an instance of Cartable');
+            throw new \RuntimeException('The item must be an instance of Cartable');
         }
     }
 }

@@ -93,11 +93,29 @@ class Cart extends Model
     public function storeItems(array $items): Cart
     {
         foreach ($items as $item) {
+            $this->storeItem($item);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Store cart item in cart.
+     */
+    public function storeItem(Model|array $item): Cart
+    {
+        if (is_array($item)) {
             $item['itemable_id'] = $item['itemable']->getKey();
             $item['itemable_type'] = get_class($item['itemable']);
             $item['quantity'] = (int) $item['quantity'];
 
-            $this->items()->create($item);
+            if ($item['itemable'] instanceof Cartable) {
+                $this->items()->create($item);
+            } else {
+                throw new \RuntimeException('The item must be an instance of Cartable');
+            }
+        } else {
+            $this->items()->save($item);
         }
 
         return $this;
