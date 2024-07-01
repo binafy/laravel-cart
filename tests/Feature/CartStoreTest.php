@@ -184,10 +184,7 @@ test('get correct price with calculated quantity', function () {
 
 test('can not store product in cart when item is not instance of cartable', function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
-    $product1 = new class extends \Illuminate\Database\Eloquent\Model
-    {
-
-    };
+    $product1 = new class extends \Illuminate\Database\Eloquent\Model {};
 
     $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 
