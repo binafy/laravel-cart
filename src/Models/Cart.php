@@ -114,7 +114,6 @@ class Cart extends Model
             $this->items()->save($item);
         }
 
-
         return $this;
     }
 
