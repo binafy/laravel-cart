@@ -21,6 +21,8 @@
     - [Store Item For a Cart](#store-item-for-a-cart)
     - [Delete Item From Cart](#delete-item-from-cart)
     - [Delete All Items From Cart](#delete-all-items-from-cart)
+    - [Increase Quantity](#increase-quantity)
+    - [Delete All Items From Cart](#delete-all-items-from-cart)
 - [Contributors](#contributors)
 - [Security](#security)
 - [Changelog](#changelog)
@@ -243,6 +245,15 @@ $items = [
 
 $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->emptyCart();
+```
+
+<a name="increase-quantity"></a>
+### Increase Quantity
+
+If you may to increase the quantity of item in cart, you can use `increaseQuantity` method:
+
+```php
+$cart->increaseQuantity(item: $item, quantity: 2); // By default quantity is 1
 ```
 
 <a name="contributors"></a>
