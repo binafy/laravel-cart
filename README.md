@@ -256,6 +256,15 @@ If you may to increase the quantity of item in cart, you can use `increaseQuanti
 $cart->increaseQuantity(item: $item, quantity: 2); // By default quantity is 1
 ```
 
+<a name="Decrease-quantity"></a>
+### Decrease Quantity
+
+If you may to decrease the quantity of item in cart, you can use `decreaseQuantity` method:
+
+```php
+$cart->decreaseQuantity(item: $item, quantity: 2); // By default quantity is 1
+```
+
 <a name="contributors"></a>
 ## Contributors
 
