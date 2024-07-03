@@ -159,4 +159,19 @@ class Cart extends Model
 
         return $this;
     }
+
+    /**
+     * Decrease the quantity of the item.
+     */
+    public function decreaseQuantity(Model $item, int $quantity = 1): static
+    {
+        $item = $this->items()->find($item->getKey());
+        if (! $item) {
+            throw new \RuntimeException('The item not found');
+        }
+
+        $item->decrement('quantity', $quantity);
+
+        return $this;
+    }
 }
