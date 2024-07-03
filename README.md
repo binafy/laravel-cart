@@ -22,7 +22,7 @@
     - [Delete Item From Cart](#delete-item-from-cart)
     - [Delete All Items From Cart](#delete-all-items-from-cart)
     - [Increase Quantity](#increase-quantity)
-    - [Delete All Items From Cart](#delete-all-items-from-cart)
+    - [Decrease Quantity](#decrease-quantity)
 - [Contributors](#contributors)
 - [Security](#security)
 - [Changelog](#changelog)
@@ -256,7 +256,7 @@ If you may to increase the quantity of item in cart, you can use `increaseQuanti
 $cart->increaseQuantity(item: $item, quantity: 2); // By default quantity is 1
 ```
 
-<a name="Decrease-quantity"></a>
+<a name="decrease-quantity"></a>
 ### Decrease Quantity
 
 If you may to decrease the quantity of item in cart, you can use `decreaseQuantity` method:
