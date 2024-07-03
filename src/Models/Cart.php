@@ -90,7 +90,7 @@ class Cart extends Model
     /**
      * Store multiple items.
      */
-    public function storeItems(array $items): Cart
+    public function storeItems(array $items): static
     {
         foreach ($items as $item) {
             $this->storeItem($item);
@@ -102,7 +102,7 @@ class Cart extends Model
     /**
      * Store cart item in cart.
      */
-    public function storeItem(Model|array $item): Cart
+    public function storeItem(Model|array $item): static
     {
         if (is_array($item)) {
             $item['itemable_id'] = $item['itemable']->getKey();
@@ -124,7 +124,7 @@ class Cart extends Model
     /**
      * Remove a single item from the cart
      */
-    public function removeItem(Model $item): Cart
+    public function removeItem(Model $item): static
     {
         $itemToDelete = $this->items()->find($item->getKey());
 
@@ -150,7 +150,7 @@ class Cart extends Model
      */
     public function increaseQuantity(Model $item, int $quantity = 1): static
     {
-        $item = $this->items()->find($item->getKey());
+        $item = $this->items()->firstWhere('itemable_id', $item->getKey());
         if (! $item) {
             throw new \RuntimeException('The item not found');
         }
