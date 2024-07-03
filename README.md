@@ -16,9 +16,9 @@
     - [Configuration](#configuration)
     - [Store Cart](#store-cart)
     - [Access Itemable](#access-itemable)
-    - [Create Cart With Storing Items](#create-cart-with-storing-items)
+    - [Create Cart With Storing Items](#create-cart-with-storing-item)
     - [Store multiple items](#store-multiple-items)
-    - [Store Item For a Cart](#store-items-for-a-cart)
+    - [Store Item For a Cart](#store-item-for-a-cart)
     - [Delete Item From Cart](#delete-item-from-cart)
     - [Delete All Items From Cart](#delete-all-items-from-cart)
 - [Contributors](#contributors)
@@ -111,8 +111,24 @@ $cartItem = new CartItem([
 $cartItem->itemable()->first(); // Return Model Instance
 ```
 
-<a name="create-cart-with-storing-items"><a>
-### Create Cart With Storing Items
+<a name="create-cart-with-storing-item"><a>
+### Create Cart With Storing Item
+
+> For storing an item for cart, you need to implement `Cartable` interface to your model.
+
+```php
+use Binafy\LaravelCart\Cartable;
+
+class Product extends Model implements Cartable
+{
+    public function getPrice(): int
+    {
+        //
+    }
+}
+```
+
+After, you can store items in multiple ways:
 
 ```php
 Cart::query()->firstOrCreateWithStoreItems(
