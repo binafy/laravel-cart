@@ -285,4 +285,4 @@ The changelog can be found in the `CHANGELOG.md` file of the GitHub repository. 
 <a name="license"></a>
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-cart/blob/0.x-dev/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-cart/blob/1.x/LICENSE) for more information.
