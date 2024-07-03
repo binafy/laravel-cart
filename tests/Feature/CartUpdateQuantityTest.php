@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
 
-use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
 
 /*
@@ -111,4 +110,3 @@ test('can not decrease quantity of the item in cart when item not found', functi
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
 })->expectExceptionMessage('The item not found');
-
