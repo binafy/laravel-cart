@@ -62,3 +62,28 @@ test('can decrease quantity of the item in cart', function () {
     assertDatabaseHas('cart_items', ['quantity' => 1]);
 });
 
+test('can not decrease quantity of the item in cart when item not found', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    $product1 = Product::query()->create(['title' => 'Product 1']);
+
+    // Create cart
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+
+    // Store item to cart
+    $cartItem = new CartItem([
+        'itemable_id' => $product1->id,
+        'itemable_type' => $product1::class,
+        'quantity' => 3,
+    ]);
+
+    $cart->items()->save($cartItem);
+
+    assertDatabaseHas('cart_items', ['quantity' => 3]);
+
+    // Increase quantity
+    $product2 = Product::query()->create(['title' => 'Product 2']);
+    $cart->decreaseQuantity($product2, 2);
+
+    assertDatabaseHas('cart_items', ['quantity' => 3]);
+})->expectExceptionMessage('The item not found');
+
