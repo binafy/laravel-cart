@@ -15,10 +15,10 @@
 - [Usage](#usage)
     - [Configuration](#configuration)
     - [Store Cart](#store-cart)
-    - [Store Items For a Cart](#store-items-for-a-cart)
     - [Access Itemable](#access-itemable)
     - [Create Cart With Storing Items](#create-cart-with-storing-items)
     - [Store multiple items](#store-multiple-items)
+    - [Store Item For a Cart](#store-items-for-a-cart)
     - [Delete Item From Cart](#delete-item-from-cart)
     - [Delete All Items From Cart](#delete-all-items-from-cart)
 - [Contributors](#contributors)
@@ -96,26 +96,6 @@ use \Binafy\LaravelCart\Models\Cart;
 $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 ```
 
-<a name="store-items-for-a-cart"></a>
-### Store Items For a Cart
-
-If you want to store items for cart, first you need to create a cart and attach items to cart:
-
-```php
-$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
-$cartItem = new CartItem([
-    'itemable_id' => $itemable->id,
-    'itemable_type' => $itemable::class,
-    'quantity' => 1,
-]);
-
-$cart->items()->save($cartItem);
-```
-
-If you may to access the items of one cart, you can use `items` relation that exists in Cart model.
-
-> There is no need to use any Interface or something for itemable.   
-
 <a name="access-itemable"></a>
 ### Access Itemable
 
@@ -165,6 +145,38 @@ $items = [
 
 $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->storeItems($items);
+```
+
+<a name="store-item-for-a-cart"></a>
+### Store Item For a Cart
+
+If you want to store items for cart, first you need to create a cart and attach items to cart:
+
+```php
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+$cartItem = new CartItem([
+    'itemable_id' => $itemable->id,
+    'itemable_type' => $itemable::class,
+    'quantity' => 1,
+]);
+
+$cart->items()->save($cartItem);
+```
+
+If you may to access the items of one cart, you can use `items` relation that exists in Cart model.
+
+For conveniences, you can use `storeItem` method. This method take a model or array:
+
+```php
+$cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+
+// Model
+$cart->storeItem($itemable);
+
+// Array
+$item['itemable'] = $itemable;
+$item['quantity'] = 1;
+$cart->storeItem($item);
 ```
 
 <a name="delete-item-from-cart"></a>
