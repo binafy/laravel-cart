@@ -144,4 +144,19 @@ class Cart extends Model
 
         return $this;
     }
+
+    /**
+     * Increase the quantity of the item.
+     */
+    public function increaseQuantity(Model $item, int $quantity = 1): static
+    {
+        $item = $this->items()->find($item->getKey());
+        if (! $item) {
+            throw new \RuntimeException('The item not found');
+        }
+
+        $item->increment('quantity', $quantity);
+
+        return $this;
+    }
 }
