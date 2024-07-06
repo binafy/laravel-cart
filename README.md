@@ -21,6 +21,8 @@
     - [Store Item For a Cart](#store-item-for-a-cart)
     - [Delete Item From Cart](#delete-item-from-cart)
     - [Delete All Items From Cart](#delete-all-items-from-cart)
+    - [Increase Quantity](#increase-quantity)
+    - [Decrease Quantity](#decrease-quantity)
 - [Contributors](#contributors)
 - [Security](#security)
 - [Changelog](#changelog)
@@ -245,6 +247,24 @@ $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
 $cart->emptyCart();
 ```
 
+<a name="increase-quantity"></a>
+### Increase Quantity
+
+If you may to increase the quantity of item in cart, you can use `increaseQuantity` method:
+
+```php
+$cart->increaseQuantity(item: $item, quantity: 2); // By default quantity is 1
+```
+
+<a name="decrease-quantity"></a>
+### Decrease Quantity
+
+If you may to decrease the quantity of item in cart, you can use `decreaseQuantity` method:
+
+```php
+$cart->decreaseQuantity(item: $item, quantity: 2); // By default quantity is 1
+```
+
 <a name="contributors"></a>
 ## Contributors
 
@@ -265,4 +285,4 @@ The changelog can be found in the `CHANGELOG.md` file of the GitHub repository. 
 <a name="license"></a>
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-cart/blob/0.x-dev/LICENSE) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-cart/blob/1.x/LICENSE) for more information.
