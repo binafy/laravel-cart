@@ -2,12 +2,24 @@
 
 namespace Binafy\LaravelCart\Drivers;
 
+use Binafy\LaravelCart\Models\Cart;
+use Illuminate\Database\Eloquent\Model;
+
 class LaravelCartDatabase implements Driver
 {
-
-    public function storeItem()
+    /**
+     * Store item in cart.
+     */
+    public function storeItem(Model|array $item, int|null $userId = null): static
     {
-        // TODO: Implement storeItem() method.
+        if (is_null($userId)) {
+            $userId = auth()->id();
+        }
+
+        $cart = Cart::query()->firstOrCreate(['user_id' => $userId]);
+        $cart->storeItem($item);
+
+        return $this;
     }
 
     public function storeItems()

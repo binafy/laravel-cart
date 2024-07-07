@@ -2,9 +2,11 @@
 
 namespace Binafy\LaravelCart\Drivers;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface Driver
 {
-    public function storeItem();
+    public function storeItem(Model|array $item, int|null $userId = null): static;
 
     public function storeItems();
 
