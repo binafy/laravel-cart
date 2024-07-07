@@ -11,7 +11,7 @@ class LaravelCartManager extends Manager
      */
     public function getDefaultDriver(): string
     {
-        return 'database';
+        return $this->config->get('laravel-cart.driver.default');
     }
 
     /**
