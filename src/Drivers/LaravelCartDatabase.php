@@ -33,9 +33,21 @@ class LaravelCartDatabase implements Driver
         return $this;
     }
 
-    public function increaseQuantity()
+    /**
+     * Increase the quantity of the item.
+     */
+    public function increaseQuantity(Model $item, int $quantity = 1): static
     {
-        // TODO: Implement increaseQuantity() method.
+        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $item = $cart->items()->firstWhere('itemable_id', $item->getKey());
+
+        if (! $item) {
+            throw new \RuntimeException('The item not found');
+        }
+
+        $item->increment('quantity', $quantity);
+
+        return $this;
     }
 
     public function decreaseQuantity()

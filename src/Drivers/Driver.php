@@ -10,7 +10,7 @@ interface Driver
 
     public function storeItems(array $items): static;
 
-    public function increaseQuantity();
+    public function increaseQuantity(Model $item, int $quantity = 1): static;
 
     public function decreaseQuantity();
 
