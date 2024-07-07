@@ -46,4 +46,11 @@ return [
          */
         'table' => 'cart_items',
     ],
+
+    /*
+     * Driver
+     */
+    'driver' => [
+        'default' => 'database',
+    ],
 ];
