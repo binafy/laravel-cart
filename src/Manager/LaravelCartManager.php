@@ -2,6 +2,7 @@
 
 namespace Binafy\LaravelCart\Manager;
 
+use Binafy\LaravelCart\Drivers\LaravelCartDatabase;
 use Illuminate\Support\Manager;
 
 class LaravelCartManager extends Manager
@@ -19,6 +20,6 @@ class LaravelCartManager extends Manager
      */
     public function createDatabaseDriver(): LaravelCartDatabase
     {
-        return new LaravelCartDatabase();
+        return new LaravelCartDatabase;
     }
 }

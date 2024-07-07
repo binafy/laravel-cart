@@ -115,7 +115,11 @@ class Cart extends Model
                 throw new \RuntimeException('The item must be an instance of Cartable');
             }
         } else {
-            $this->items()->save($item);
+            $this->items()->create([
+                'itemable_id' => $item->getKey(),
+                'itemable_type' => get_class($item),
+                'itemable_quantity' => 1,
+            ]);
         }
 
         return $this;
