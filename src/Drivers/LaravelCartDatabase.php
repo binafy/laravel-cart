@@ -50,9 +50,21 @@ class LaravelCartDatabase implements Driver
         return $this;
     }
 
-    public function decreaseQuantity()
+    /**
+     * Decrease the quantity of the item.
+     */
+    public function decreaseQuantity(Model $item, int $quantity = 1): static
     {
-        // TODO: Implement decreaseQuantity() method.
+        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $item = $cart->items()->firstWhere('itemable_id', $item->getKey());
+
+        if (! $item) {
+            throw new \RuntimeException('The item not found');
+        }
+
+        $item->decrement('quantity', $quantity);
+
+        return $this;
     }
 
     public function removeItem()

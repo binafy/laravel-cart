@@ -17,7 +17,7 @@ uses(RefreshDatabase::class);
 test('can increase quantity of the item in cart with facade', function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     auth()->login($user);
-    
+
     $product = Product::query()->create(['title' => 'Product 1']);
 
     // Create cart
@@ -38,4 +38,31 @@ test('can increase quantity of the item in cart with facade', function () {
     LaravelCart::increaseQuantity($product, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
+});
+
+
+test('can decrease quantity of the item in cart with facade', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    auth()->login($user);
+
+    $product = Product::query()->create(['title' => 'Product 1']);
+
+    // Create cart
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+
+    // Store item to cart
+    $cartItem = new CartItem([
+        'itemable_id' => $product->id,
+        'itemable_type' => $product::class,
+        'quantity' => 3,
+    ]);
+
+    $cart->items()->save($cartItem);
+
+    assertDatabaseHas('cart_items', ['quantity' => 3]);
+
+    // Increase quantity
+    LaravelCart::decreaseQuantity($product, 2);
+
+    assertDatabaseHas('cart_items', ['quantity' => 1]);
 });
