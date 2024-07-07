@@ -17,7 +17,7 @@ class LaravelCartServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../../config/laravel-cart.php', 'laravel-cart');
 
         $this->app->bind('laravel-cart', function (Application $app) {
-            return new LaravelCartManager;
+            return new LaravelCartManager($app);
         });
     }
 
