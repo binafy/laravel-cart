@@ -2,6 +2,8 @@
 
 namespace Binafy\LaravelCart\Providers;
 
+use Binafy\LaravelCart\Manager\LaravelCartManager;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelCartServiceProvider extends ServiceProvider
@@ -13,6 +15,10 @@ class LaravelCartServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->mergeConfigFrom(__DIR__.'/../../config/laravel-cart.php', 'laravel-cart');
+
+        $this->app->bind('laravel-cart', function (Application $app) {
+            return new LaravelCartManager;
+        });
     }
 
     /**
