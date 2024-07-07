@@ -142,7 +142,7 @@ class Cart extends Model
     /**
      * Remove every item from the cart
      */
-    public function emptyCart(): Cart
+    public function emptyCart(): static
     {
         $this->items()->delete();
 

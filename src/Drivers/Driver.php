@@ -14,7 +14,7 @@ interface Driver
 
     public function decreaseQuantity(Model $item, int $quantity = 1): static;
 
-    public function removeItem();
+    public function removeItem(Model $item): static;
 
-    public function empty();
+    public function empty(): static;
 }

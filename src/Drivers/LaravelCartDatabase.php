@@ -67,13 +67,29 @@ class LaravelCartDatabase implements Driver
         return $this;
     }
 
-    public function removeItem()
+    /**
+     * Remove a single item from the cart
+     */
+    public function removeItem(Model $item): static
     {
-        // TODO: Implement removeItem() method.
+        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $itemToDelete = $cart->items()->find($item->getKey());
+
+        if ($itemToDelete) {
+            $itemToDelete->delete();
+        }
+
+        return $this;
     }
 
-    public function empty()
+    /**
+     * Remove every item from the cart
+     */
+    public function empty(): static
     {
-        // TODO: Implement empty() method.
+        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart->emptyCart();
+
+        return $this;
     }
 }
