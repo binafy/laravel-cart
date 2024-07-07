@@ -85,7 +85,7 @@ class LaravelCartDatabase implements Driver
     /**
      * Remove every item from the cart
      */
-    public function empty(): static
+    public function emptyCart(): static
     {
         $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
         $cart->emptyCart();

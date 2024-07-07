@@ -16,5 +16,5 @@ interface Driver
 
     public function removeItem(Model $item): static;
 
-    public function empty(): static;
+    public function emptyCart(): static;
 }
