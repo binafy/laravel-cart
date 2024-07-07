@@ -8,7 +8,7 @@ interface Driver
 {
     public function storeItem(Model|array $item, int|null $userId = null): static;
 
-    public function storeItems();
+    public function storeItems(array $items): static;
 
     public function increaseQuantity();
 

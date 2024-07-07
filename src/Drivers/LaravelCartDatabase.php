@@ -22,9 +22,15 @@ class LaravelCartDatabase implements Driver
         return $this;
     }
 
-    public function storeItems()
+    /**
+     * Store multiple items in cart.
+     */
+    public function storeItems(array $items): static
     {
-        // TODO: Implement storeItems() method.
+        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart->storeItems($items);
+
+        return $this;
     }
 
     public function increaseQuantity()

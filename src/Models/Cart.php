@@ -88,7 +88,7 @@ class Cart extends Model
     }
 
     /**
-     * Store multiple items.
+     * Store multiple items in cart.
      */
     public function storeItems(array $items): static
     {
