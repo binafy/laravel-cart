@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 interface Driver
 {
-    public function storeItem(Model|array $item, int|null $userId = null): static;
+    public function storeItem(Model|array $item, int|null $userId = null): Driver;
 
-    public function storeItems(array $items): static;
+    public function storeItems(array $items): Driver;
 
-    public function increaseQuantity(Model $item, int $quantity = 1): static;
+    public function increaseQuantity(Model $item, int $quantity = 1): Driver;
 
-    public function decreaseQuantity(Model $item, int $quantity = 1): static;
+    public function decreaseQuantity(Model $item, int $quantity = 1): Driver;
 
-    public function removeItem(Model $item): static;
+    public function removeItem(Model $item): Driver;
 
-    public function emptyCart(): static;
+    public function emptyCart(): Driver;
 }
