@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static string getDefaultDriver()
  * @method static void setDefaultDriver(string $name)
+ *
+ * @see \Binafy\LaravelCart\Manager\LaravelCartManager
  */
 class LaravelCart extends Facade
 {
