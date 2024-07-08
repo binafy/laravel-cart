@@ -35,7 +35,7 @@ test('can increase quantity of the item in cart with facade', function () {
     assertDatabaseHas('cart_items', ['quantity' => 1]);
 
     // Increase quantity
-    LaravelCart::increaseQuantity($product, 2);
+    LaravelCart::driver('database')->increaseQuantity($product, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
 });
@@ -61,7 +61,7 @@ test('can decrease quantity of the item in cart with facade', function () {
     assertDatabaseHas('cart_items', ['quantity' => 3]);
 
     // Increase quantity
-    LaravelCart::decreaseQuantity($product, 2);
+    LaravelCart::driver('database')->decreaseQuantity($product, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 1]);
 });
@@ -88,7 +88,7 @@ test('can not increase quantity of the item in cart with facade when item not fo
     assertDatabaseHas('cart_items', ['quantity' => 1]);
 
     // Increase quantity
-    LaravelCart::increaseQuantity($product2 , 2);
+    LaravelCart::driver('database')->increaseQuantity($product2 , 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 1]);
     assertDatabaseMissing('cart_items', ['quantity' => 3]);
@@ -116,7 +116,7 @@ test('can not decrease quantity of the item in cart with facade when item not fo
     assertDatabaseHas('cart_items', ['quantity' => 3]);
 
     // Decrease quantity
-    LaravelCart::decreaseQuantity($product2 , 2);
+    LaravelCart::driver('database')->decreaseQuantity($product2 , 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
     assertDatabaseMissing('cart_items', ['quantity' => 1]);

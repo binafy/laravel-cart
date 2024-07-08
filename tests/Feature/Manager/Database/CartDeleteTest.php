@@ -45,16 +45,16 @@ test('can remove an item from the cart with facade', function () {
     $cart->storeItems($items);
 
     // Delete Item from cart
-    LaravelCart::removeItem($product1);
+    LaravelCart::driver('database')->removeItem($product1);
 
     // DB Assertions
     assertDatabaseCount('carts', 1);
     assertDatabaseCount('cart_items', 3);
 
-    LaravelCart::removeItem($product2);
+    LaravelCart::driver('database')->removeItem($product2);
     assertDatabaseCount('cart_items', 2);
 
-    LaravelCart::removeItem($product1);
+    LaravelCart::driver('database')->removeItem($product1);
     assertDatabaseCount('cart_items', 2);
 });
 
@@ -93,6 +93,6 @@ test('can empty the cart', function () {
     assertDatabaseCount('cart_items', 4);
 
     // Remove all items from cart
-    LaravelCart::emptyCart();
+    LaravelCart::driver('database')->emptyCart();
     assertDatabaseCount('cart_items', 0);
 });
