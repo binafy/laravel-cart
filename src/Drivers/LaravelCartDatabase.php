@@ -10,7 +10,7 @@ class LaravelCartDatabase implements Driver
     /**
      * Store item in cart.
      */
-    public function storeItem(Model|array $item, int|null $userId = null): static
+    public function storeItem(Model|array $item, ?int $userId = null): static
     {
         if (is_null($userId)) {
             $userId = auth()->id();

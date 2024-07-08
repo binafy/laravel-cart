@@ -6,6 +6,7 @@ use Binafy\LaravelCart\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
+
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
 
@@ -88,7 +89,7 @@ test('can not increase quantity of the item in cart with facade when item not fo
     assertDatabaseHas('cart_items', ['quantity' => 1]);
 
     // Increase quantity
-    LaravelCart::driver('database')->increaseQuantity($product2 , 2);
+    LaravelCart::driver('database')->increaseQuantity($product2, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 1]);
     assertDatabaseMissing('cart_items', ['quantity' => 3]);
@@ -116,7 +117,7 @@ test('can not decrease quantity of the item in cart with facade when item not fo
     assertDatabaseHas('cart_items', ['quantity' => 3]);
 
     // Decrease quantity
-    LaravelCart::driver('database')->decreaseQuantity($product2 , 2);
+    LaravelCart::driver('database')->decreaseQuantity($product2, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
     assertDatabaseMissing('cart_items', ['quantity' => 1]);

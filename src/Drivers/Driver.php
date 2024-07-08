@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 interface Driver
 {
-    public function storeItem(Model|array $item, int|null $userId = null): Driver;
+    public function storeItem(Model|array $item, ?int $userId = null): Driver;
 
     public function storeItems(array $items): Driver;
 

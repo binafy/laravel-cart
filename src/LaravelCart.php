@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Binafy\LaravelCart\Drivers\Driver decreaseQuantity(\Illuminate\Database\Eloquent\Model $item, int $quantity = 1)
  * @method static \Binafy\LaravelCart\Drivers\Driver removeItem(\Illuminate\Database\Eloquent\Model $item)
  * @method static \Binafy\LaravelCart\Drivers\Driver emptyCart()
- *
  * @method static string getDefaultDriver()
  * @method static void setDefaultDriver(string $name)
  *
