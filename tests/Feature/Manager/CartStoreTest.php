@@ -1,17 +1,11 @@
 <?php
 
-use Binafy\LaravelCart\Models\Cart;
-use Binafy\LaravelCart\Models\CartItem;
+use Binafy\LaravelCart\LaravelCart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
-use Binafy\LaravelCart\LaravelCart;
-
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertDatabaseMissing;
-use function PHPUnit\Framework\assertInstanceOf;
 
 /*
  * Use `RefreshDatabase` for delete migration data for each test.
@@ -61,5 +55,24 @@ test('can store products in cart with facade', closure: function () {
         'itemable_id' => $product1->id,
         'itemable_type' => $product1::class,
         'quantity' => 2,
+    ]);
+});
+
+test('can store product in cart with facade and login user', closure: function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    auth()->login($user);
+
+    $product = Product::query()->create(['title' => 'Product 1']);
+
+    // Store item in cart
+    LaravelCart::driver('database')->storeItem($product);
+
+    // DB Assertions
+    assertDatabaseCount('carts', 1);
+    assertDatabaseCount('cart_items', 1);
+    assertDatabaseHas('cart_items', [
+        'itemable_id' => $product->id,
+        'itemable_type' => $product::class,
+        'quantity' => 1,
     ]);
 });

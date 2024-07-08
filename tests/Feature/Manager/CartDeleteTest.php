@@ -5,7 +5,6 @@ use Binafy\LaravelCart\Models\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
-
 use function Pest\Laravel\assertDatabaseCount;
 
 /*
