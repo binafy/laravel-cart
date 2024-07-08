@@ -93,3 +93,31 @@ test('can not increase quantity of the item in cart with facade when item not fo
     assertDatabaseHas('cart_items', ['quantity' => 1]);
     assertDatabaseMissing('cart_items', ['quantity' => 3]);
 })->expectExceptionMessage('The item not found');
+
+test('can not decrease quantity of the item in cart with facade when item not found', function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    auth()->login($user);
+
+    $product1 = Product::query()->create(['title' => 'Product 1']);
+    $product2 = Product::query()->create(['title' => 'Product 2']);
+
+    // Create cart
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+
+    // Store item to cart
+    $cartItem = new CartItem([
+        'itemable_id' => $product1->id,
+        'itemable_type' => $product1::class,
+        'quantity' => 3,
+    ]);
+
+    $cart->items()->save($cartItem);
+
+    assertDatabaseHas('cart_items', ['quantity' => 3]);
+
+    // Decrease quantity
+    LaravelCart::decreaseQuantity($product2 , 2);
+
+    assertDatabaseHas('cart_items', ['quantity' => 3]);
+    assertDatabaseMissing('cart_items', ['quantity' => 1]);
+})->expectExceptionMessage('The item not found');
