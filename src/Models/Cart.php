@@ -4,6 +4,7 @@ namespace Binafy\LaravelCart\Models;
 
 use App\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Cartable;
+use Binafy\LaravelCart\Events\LaravelCartDecreaseQuantityEvent;
 use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
 use Binafy\LaravelCart\Events\LaravelCartIncreaseQuantityEvent;
 use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
@@ -191,6 +192,9 @@ class Cart extends Model
         }
 
         $item->decrement('quantity', $quantity);
+
+        // Dispatch Event
+        LaravelCartDecreaseQuantityEvent::dispatch($item);
 
         return $this;
     }
