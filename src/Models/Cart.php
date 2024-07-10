@@ -4,6 +4,7 @@ namespace Binafy\LaravelCart\Models;
 
 use App\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Cartable;
+use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
 use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -153,6 +154,9 @@ class Cart extends Model
     public function emptyCart(): static
     {
         $this->items()->delete();
+
+        // Dispatch Event
+        LaravelCartEmptyEvent::dispatch();
 
         return $this;
     }
