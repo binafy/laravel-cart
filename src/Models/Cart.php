@@ -4,6 +4,7 @@ namespace Binafy\LaravelCart\Models;
 
 use App\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Cartable;
+use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -123,7 +124,7 @@ class Cart extends Model
             ]);
         }
 
-        // Dispatch event
+        // Dispatch Event
         LaravelCartStoreItemEvent::dispatch();
 
         return $this;
@@ -139,6 +140,9 @@ class Cart extends Model
         if ($itemToDelete) {
             $itemToDelete->delete();
         }
+
+        // Dispatch Event
+        LaravelCartRemoveItemEvent::dispatch();
 
         return $this;
     }
