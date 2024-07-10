@@ -2,6 +2,7 @@
 
 namespace Binafy\LaravelCart\Models;
 
+use App\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Cartable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -121,6 +122,9 @@ class Cart extends Model
                 'itemable_quantity' => 1,
             ]);
         }
+
+        // Dispatch event
+        LaravelCartStoreItemEvent::dispatch();
 
         return $this;
     }
