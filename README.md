@@ -14,15 +14,19 @@
 - [Publish](#publish)
 - [Usage](#usage)
     - [Configuration](#configuration)
-    - [Store Cart](#store-cart)
-    - [Access Itemable](#access-itemable)
-    - [Create Cart With Storing Items](#create-cart-with-storing-item)
-    - [Store multiple items](#store-multiple-items)
-    - [Store Item For a Cart](#store-item-for-a-cart)
-    - [Delete Item From Cart](#delete-item-from-cart)
-    - [Delete All Items From Cart](#delete-all-items-from-cart)
-    - [Increase Quantity](#increase-quantity)
-    - [Decrease Quantity](#decrease-quantity)
+    - [Laravel Cart Facade](#laravel-cart-facade)
+      - [Driver](#driver)
+      - [Support Drivers](#support-drivers)
+    - [Laravel Cart Model](#laravel-cart-model)
+      - [Store Cart](#store-cart)
+      - [Access Itemable](#access-itemable)
+      - [Create Cart With Storing Items](#create-cart-with-storing-item)
+      - [Store multiple items](#store-multiple-items)
+      - [Store Item For a Cart](#store-item-for-a-cart)
+      - [Delete Item From Cart](#delete-item-from-cart)
+      - [Delete All Items From Cart](#delete-all-items-from-cart)
+      - [Increase Quantity](#increase-quantity)
+      - [Decrease Quantity](#decrease-quantity)
 - [Contributors](#contributors)
 - [Security](#security)
 - [Changelog](#changelog)
@@ -86,6 +90,49 @@ After publishing, run the `php artisan migrate` command.
 ### Configuration
 
 You can config the `Laravel Cart` with `laravel-cart.php` config that exists in `config` folder.
+
+<a name="laravel-cart-facade"></a>
+### Laravel Cart Facade
+
+For convenience, you can use Laravel Cart facade to store, delete, and ...:
+
+```php
+<?php
+
+use Binafy\LaravelCart\LaravelCart;
+
+LaravelCart::driver('session')->storeItem($item, $userId|null);
+LaravelCart::storeItem($item $userId|null);
+```
+
+<a name="driver"></a>
+### Driver
+
+If you may to using Laravel Cart facade, you can change the driver for store, delete, and ...:
+
+```php
+<?php
+
+use Binafy\LaravelCart\LaravelCart;
+
+LaravelCart::driver('database')->storeItem($item, $userId|null);
+LaravelCart::driver('session')->removeItem($item);
+```
+
+> The default driver is `database` and if you would to change the driver, you need to use the Laravel Cart config file that exists on `config\laravel-cart.php`.
+
+<a name="support-drivers"></a>
+### Support Drivers
+
+| Drivers  | Name     |
+|----------|----------|
+| Session  | session  |
+| Database | database |
+
+<a name="laravel-cart-model"></a>
+### Laravel Cart Model
+
+Also, you are able to use Laravel Cart models for fetch or ... with Laravel Eloquent.
 
 <a name="store-cart"></a>
 ### Store Cart

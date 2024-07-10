@@ -88,7 +88,7 @@ class Cart extends Model
     }
 
     /**
-     * Store multiple items.
+     * Store multiple items in cart.
      */
     public function storeItems(array $items): static
     {
@@ -115,7 +115,11 @@ class Cart extends Model
                 throw new \RuntimeException('The item must be an instance of Cartable');
             }
         } else {
-            $this->items()->save($item);
+            $this->items()->create([
+                'itemable_id' => $item->getKey(),
+                'itemable_type' => get_class($item),
+                'itemable_quantity' => 1,
+            ]);
         }
 
         return $this;
@@ -138,7 +142,7 @@ class Cart extends Model
     /**
      * Remove every item from the cart
      */
-    public function emptyCart(): Cart
+    public function emptyCart(): static
     {
         $this->items()->delete();
 

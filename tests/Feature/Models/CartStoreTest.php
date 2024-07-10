@@ -32,6 +32,7 @@ test('can store product in cart', function () {
 
     // Assertions
     assertInstanceOf($product::class, $cartItem->itemable()->first());
+    assertInstanceOf($cart::class, $cartItem->cart()->first());
 
     // DB Assertions
     assertDatabaseCount('carts', 1);
