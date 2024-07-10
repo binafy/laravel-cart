@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Binafy\LaravelCart\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;

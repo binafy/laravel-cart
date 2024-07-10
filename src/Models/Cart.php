@@ -2,7 +2,7 @@
 
 namespace Binafy\LaravelCart\Models;
 
-use App\Events\LaravelCartStoreItemEvent;
+use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Cartable;
 use Binafy\LaravelCart\Events\LaravelCartDecreaseQuantityEvent;
 use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
