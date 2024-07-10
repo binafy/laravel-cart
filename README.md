@@ -98,6 +98,20 @@ After publishing, run the `php artisan migrate` command.
 
 You can config the `Laravel Cart` with `laravel-cart.php` config that exists in `config` folder.
 
+<a name="laravel-cart-facade"></a>
+### Laravel Cart Facade
+
+For convenience, you can use LaravelCart facade to store, delete, and ...:
+
+```php
+<?php
+
+use Binafy\LaravelCart\LaravelCart;
+
+LaravelCart::driver('session')->storeItem($item $userId|null);
+LaravelCart::storeItem($item $userId|null);
+```
+
 <a name="store-cart"></a>
 ### Store Cart
 
