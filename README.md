@@ -16,6 +16,7 @@
     - [Configuration](#configuration)
     - [Laravel Cart Facade](#laravel-cart-facade)
       - [Driver](#driver)
+      - [Support Drivers](#support-drivers)
       - [Store Cart](#store-cart)
       - [Access Itemable](#access-itemable)
       - [Create Cart With Storing Items](#create-cart-with-storing-item)
@@ -128,6 +129,14 @@ LaravelCart::driver('session')->removeItem($item);
 ```
 
 > The default driver is `database` and if you would to change the driver, you need to use the Laravel Cart config file that exists on `config\laravel-cart.php`.
+
+<a name="support-drivers"></a>
+### Support Drivers
+
+| Drivers  | Name     |
+|----------|----------|
+| Session  | session  |
+| Database | database |
 
 <a name="store-cart"></a>
 ### Store Cart
