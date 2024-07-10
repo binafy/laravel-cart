@@ -17,15 +17,6 @@
     - [Laravel Cart Facade](#laravel-cart-facade)
       - [Driver](#driver)
       - [Support Drivers](#support-drivers)
-      - [Store Cart](#store-cart)
-      - [Access Itemable](#access-itemable)
-      - [Create Cart With Storing Items](#create-cart-with-storing-item)
-      - [Store multiple items](#store-multiple-items)
-      - [Store Item For a Cart](#store-item-for-a-cart)
-      - [Delete Item From Cart](#delete-item-from-cart)
-      - [Delete All Items From Cart](#delete-all-items-from-cart)
-      - [Increase Quantity](#increase-quantity)
-      - [Decrease Quantity](#decrease-quantity)
     - [Laravel Cart Model](#laravel-cart-model)
       - [Store Cart](#store-cart)
       - [Access Itemable](#access-itemable)
@@ -137,6 +128,11 @@ LaravelCart::driver('session')->removeItem($item);
 |----------|----------|
 | Session  | session  |
 | Database | database |
+
+<a name="laravel-cart-model"></a>
+### Laravel Cart Model
+
+Also, you are able to use Laravel Cart models for fetch or ... with Laravel Eloquent.
 
 <a name="store-cart"></a>
 ### Store Cart
