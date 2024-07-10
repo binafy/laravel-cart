@@ -15,6 +15,7 @@
 - [Usage](#usage)
     - [Configuration](#configuration)
     - [Laravel Cart Facade](#laravel-cart-facade)
+      - [Driver](#driver)
       - [Store Cart](#store-cart)
       - [Access Itemable](#access-itemable)
       - [Create Cart With Storing Items](#create-cart-with-storing-item)
@@ -101,16 +102,32 @@ You can config the `Laravel Cart` with `laravel-cart.php` config that exists in 
 <a name="laravel-cart-facade"></a>
 ### Laravel Cart Facade
 
-For convenience, you can use LaravelCart facade to store, delete, and ...:
+For convenience, you can use Laravel Cart facade to store, delete, and ...:
 
 ```php
 <?php
 
 use Binafy\LaravelCart\LaravelCart;
 
-LaravelCart::driver('session')->storeItem($item $userId|null);
+LaravelCart::driver('session')->storeItem($item, $userId|null);
 LaravelCart::storeItem($item $userId|null);
 ```
+
+<a name="driver"></a>
+### Driver
+
+If you may to using Laravel Cart facade, you can change the driver for store, delete, and ...:
+
+```php
+<?php
+
+use Binafy\LaravelCart\LaravelCart;
+
+LaravelCart::driver('database')->storeItem($item, $userId|null);
+LaravelCart::driver('session')->removeItem($item);
+```
+
+> The default driver is `database` and if you would to change the driver, you need to use the Laravel Cart config file that exists on `config\laravel-cart.php`.
 
 <a name="store-cart"></a>
 ### Store Cart
