@@ -2,12 +2,12 @@
 
 namespace Binafy\LaravelCart\Models;
 
-use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Cartable;
 use Binafy\LaravelCart\Events\LaravelCartDecreaseQuantityEvent;
 use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
 use Binafy\LaravelCart\Events\LaravelCartIncreaseQuantityEvent;
 use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
+use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

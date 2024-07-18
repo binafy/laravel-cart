@@ -2,7 +2,6 @@
 
 use Binafy\LaravelCart\Events\LaravelCartDecreaseQuantityEvent;
 use Binafy\LaravelCart\Events\LaravelCartIncreaseQuantityEvent;
-use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Models\Cart;
 use Binafy\LaravelCart\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
