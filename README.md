@@ -318,13 +318,13 @@ $cart->decreaseQuantity(item: $item, quantity: 2); // By default quantity is 1
 
 The `Laravel Cart` have some events that you can listen to these event and doing something:
 
-| Events                           | Description |
-|----------------------------------|-------------|
-| LaravelCartStoreItemEvent        | Title       |
-| LaravelCartRemoveItemEvent       | Text        |
-| LaravelCartEmptyEvent            | Text        |
-| LaravelCartIncreaseQuantityEvent | Text        |
-| LaravelCartDecreaseQuantityEvent | Text        |
+| Events                             | Description                                                      |
+|------------------------------------|------------------------------------------------------------------|
+| `LaravelCartStoreItemEvent`        | When you store an item in cart, this event fired                 |
+| `LaravelCartRemoveItemEvent`       | When you remove an item from cart, this event fired              |
+| `LaravelCartEmptyEvent`            | When you remove all items from cart, this event fired            |
+| `LaravelCartIncreaseQuantityEvent` | When you increase the quantity of item in cart, this event fired |
+| `LaravelCartDecreaseQuantityEvent` | When you decrease the quantity of item in cart, this event fired |
 
 <a name="contributors"></a>
 ## Contributors
