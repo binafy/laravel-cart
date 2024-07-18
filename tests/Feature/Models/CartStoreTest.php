@@ -1,5 +1,6 @@
 <?php
 
+use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Models\Cart;
 use Binafy\LaravelCart\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -79,6 +80,8 @@ test('can store product in cart with custom table name from config', function ()
 });
 
 test('can store product in cart with firstOrCreateWithItems scope', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product = Product::query()->create(['title' => 'Product 1']);
 
@@ -92,9 +95,14 @@ test('can store product in cart with firstOrCreateWithItems scope', function () 
         'itemable_type' => $product::class,
         'quantity' => 1,
     ]);
+
+    // Event Assertion
+    Event::assertDispatched(LaravelCartStoreItemEvent::class);
 });
 
 test('can store product in cart with firstOrCreateWithItems scope when user sign-in', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product = Product::query()->create(['title' => 'Product 1']);
 
@@ -110,9 +118,14 @@ test('can store product in cart with firstOrCreateWithItems scope when user sign
         'itemable_type' => $product::class,
         'quantity' => 1,
     ]);
+
+    // Event Assertion
+    Event::assertDispatched(LaravelCartStoreItemEvent::class);
 });
 
 test('can store multiple products in cart', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product1 = Product::query()->create(['title' => 'Product 1']);
     $product2 = Product::query()->create(['title' => 'Product 1']);
@@ -144,6 +157,9 @@ test('can store multiple products in cart', function () {
         'itemable_type' => $product1::class,
         'quantity' => 2,
     ]);
+
+    // Event Assertion
+    Event::assertDispatchedTimes(LaravelCartStoreItemEvent::class, 3);
 });
 
 test('get correct price with calculated quantity', function () {
@@ -184,6 +200,8 @@ test('get correct price with calculated quantity', function () {
 });
 
 test('can not store product in cart when item is not instance of cartable', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $user2 = User::query()->create(['name' => 'Binafy', 'email' => 'binafy23@gmail.comd']);
 
@@ -202,4 +220,7 @@ test('can not store product in cart when item is not instance of cartable', func
         'itemable_type' => $user2::class,
         'quantity' => 2,
     ]);
+
+    // Event Assertion
+    Event::assertNotDispatched(LaravelCartStoreItemEvent::class);
 })->expectExceptionMessage('The item must be an instance of Cartable');

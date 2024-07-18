@@ -74,6 +74,9 @@ class Cart extends Model
 
         $cart->items()->save($cartItem);
 
+        // Dispatch Event
+        LaravelCartStoreItemEvent::dispatch();
+
         return $query;
     }
 
