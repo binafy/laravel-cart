@@ -27,6 +27,7 @@
       - [Delete All Items From Cart](#delete-all-items-from-cart)
       - [Increase Quantity](#increase-quantity)
       - [Decrease Quantity](#decrease-quantity)
+    - [Available Events](#available-events)
 - [Contributors](#contributors)
 - [Security](#security)
 - [Changelog](#changelog)
@@ -311,6 +312,19 @@ If you may to decrease the quantity of item in cart, you can use `decreaseQuanti
 ```php
 $cart->decreaseQuantity(item: $item, quantity: 2); // By default quantity is 1
 ```
+
+<a name="available-events"></a>
+### Available Events
+
+The `Laravel Cart` have some events that you can listen to these event and doing something:
+
+| Events                             | Description                                                      |
+|------------------------------------|------------------------------------------------------------------|
+| `LaravelCartStoreItemEvent`        | When you store an item in cart, this event fired                 |
+| `LaravelCartRemoveItemEvent`       | When you remove an item from cart, this event fired              |
+| `LaravelCartEmptyEvent`            | When you remove all items from cart, this event fired            |
+| `LaravelCartIncreaseQuantityEvent` | When you increase the quantity of item in cart, this event fired |
+| `LaravelCartDecreaseQuantityEvent` | When you decrease the quantity of item in cart, this event fired |
 
 <a name="contributors"></a>
 ## Contributors

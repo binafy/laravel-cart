@@ -1,5 +1,7 @@
 <?php
 
+use Binafy\LaravelCart\Events\LaravelCartDecreaseQuantityEvent;
+use Binafy\LaravelCart\Events\LaravelCartIncreaseQuantityEvent;
 use Binafy\LaravelCart\Models\Cart;
 use Binafy\LaravelCart\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -14,6 +16,8 @@ use function Pest\Laravel\assertDatabaseHas;
 uses(RefreshDatabase::class);
 
 test('can increase quantity of the item in cart', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product = Product::query()->create(['title' => 'Product 1']);
 
@@ -35,9 +39,14 @@ test('can increase quantity of the item in cart', function () {
     $cart->increaseQuantity($product, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
+
+    // Event Assertion
+    Event::assertDispatched(LaravelCartIncreaseQuantityEvent::class);
 });
 
 test('can decrease quantity of the item in cart', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product = Product::query()->create(['title' => 'Product 1']);
 
@@ -59,9 +68,14 @@ test('can decrease quantity of the item in cart', function () {
     $cart->decreaseQuantity($product, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 1]);
+
+    // Event Assertion
+    Event::assertDispatched(LaravelCartDecreaseQuantityEvent::class);
 });
 
 test('can not increase quantity of the item in cart when item not found', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product1 = Product::query()->create(['title' => 'Product 1']);
 
@@ -84,9 +98,14 @@ test('can not increase quantity of the item in cart when item not found', functi
     $cart->increaseQuantity($product2, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 1]);
+
+    // Event Assertion
+    Event::assertNotDispatched(LaravelCartIncreaseQuantityEvent::class);
 })->expectExceptionMessage('The item not found');
 
 test('can not decrease quantity of the item in cart when item not found', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product1 = Product::query()->create(['title' => 'Product 1']);
 
@@ -109,4 +128,7 @@ test('can not decrease quantity of the item in cart when item not found', functi
     $cart->decreaseQuantity($product2, 2);
 
     assertDatabaseHas('cart_items', ['quantity' => 3]);
+
+    // Event Assertion
+    Event::assertNotDispatched(LaravelCartDecreaseQuantityEvent::class);
 })->expectExceptionMessage('The item not found');

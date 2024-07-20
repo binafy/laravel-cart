@@ -3,6 +3,11 @@
 namespace Binafy\LaravelCart\Models;
 
 use Binafy\LaravelCart\Cartable;
+use Binafy\LaravelCart\Events\LaravelCartDecreaseQuantityEvent;
+use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
+use Binafy\LaravelCart\Events\LaravelCartIncreaseQuantityEvent;
+use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
+use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -69,6 +74,9 @@ class Cart extends Model
 
         $cart->items()->save($cartItem);
 
+        // Dispatch Event
+        LaravelCartStoreItemEvent::dispatch();
+
         return $query;
     }
 
@@ -122,6 +130,9 @@ class Cart extends Model
             ]);
         }
 
+        // Dispatch Event
+        LaravelCartStoreItemEvent::dispatch();
+
         return $this;
     }
 
@@ -136,6 +147,9 @@ class Cart extends Model
             $itemToDelete->delete();
         }
 
+        // Dispatch Event
+        LaravelCartRemoveItemEvent::dispatch();
+
         return $this;
     }
 
@@ -145,6 +159,9 @@ class Cart extends Model
     public function emptyCart(): static
     {
         $this->items()->delete();
+
+        // Dispatch Event
+        LaravelCartEmptyEvent::dispatch();
 
         return $this;
     }
@@ -161,6 +178,9 @@ class Cart extends Model
 
         $item->increment('quantity', $quantity);
 
+        // Dispatch Event
+        LaravelCartIncreaseQuantityEvent::dispatch($item);
+
         return $this;
     }
 
@@ -175,6 +195,9 @@ class Cart extends Model
         }
 
         $item->decrement('quantity', $quantity);
+
+        // Dispatch Event
+        LaravelCartDecreaseQuantityEvent::dispatch($item);
 
         return $this;
     }

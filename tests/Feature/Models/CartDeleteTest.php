@@ -1,7 +1,11 @@
 <?php
 
+use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
+use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
+use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Models\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
 
@@ -12,7 +16,9 @@ use function Pest\Laravel\assertDatabaseCount;
  */
 uses(RefreshDatabase::class);
 
-test('can remove an item from the cart', function () {
+test('can remove an item from the cart', closure: function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product1 = Product::query()->create(['title' => 'Product 1']);
     $product2 = Product::query()->create(['title' => 'Product 2']);
@@ -54,9 +60,15 @@ test('can remove an item from the cart', function () {
 
     $cart->removeItem($product1);
     assertDatabaseCount('cart_items', 2);
+
+    // Event Assertions
+    Event::assertDispatched(LaravelCartStoreItemEvent::class);
+    Event::assertDispatched(LaravelCartRemoveItemEvent::class);
 });
 
 test('can empty the cart', function () {
+    Event::fake();
+
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product1 = Product::query()->create(['title' => 'Product 1']);
     $product2 = Product::query()->create(['title' => 'Product 2']);
@@ -91,4 +103,8 @@ test('can empty the cart', function () {
     // Remove all items from cart
     $cart->emptyCart();
     assertDatabaseCount('cart_items', 0);
+
+    // Event Assertions
+    Event::assertDispatched(LaravelCartStoreItemEvent::class);
+    Event::assertDispatched(LaravelCartEmptyEvent::class);
 });
