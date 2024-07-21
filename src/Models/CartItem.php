@@ -27,6 +27,24 @@ class CartItem extends Model
     }
 
     /**
+     * Get option.
+     */
+    public function getOption(string $option): mixed
+    {
+        $options = json_decode($this->options);
+
+        return $options[$option] ?? null;
+    }
+
+    /**
+     * Get options.
+     */
+    public function getOptions(): mixed
+    {
+        return json_decode($this->options);
+    }
+
+    /**
      * Relation polymorphic, inverse one-to-one or many relationship.
      */
     public function itemable(): \Illuminate\Database\Eloquent\Relations\MorphTo
