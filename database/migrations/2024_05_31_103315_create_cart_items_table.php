@@ -22,7 +22,7 @@ return new class extends Migration
             $table->morphs('itemable');
             $table->unsignedInteger('quantity')->default(1);
             $table->json('options')->nullable();
-            
+
             $table->timestamps();
         });
     }

@@ -14,7 +14,7 @@ class CartItem extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['cart_id', 'itemable_id', 'itemable_type', 'quantity'];
+    protected $guarded = ['id'];
 
     /**
      * Create a new instance of the model.
