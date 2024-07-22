@@ -31,7 +31,7 @@ class CartItem extends Model
      */
     public function getOption(string $option): mixed
     {
-        $options = json_decode($this->options);
+        $options = json_decode($this->options, true);
 
         return $options[$option] ?? null;
     }
@@ -41,15 +41,32 @@ class CartItem extends Model
      */
     public function getOptions(): mixed
     {
-        return json_decode($this->options);
+        return json_decode($this->options, true);
     }
 
     /**
-     * Get options.
+     * Set option.
      */
     public function setOption(string $key, mixed $value): static
     {
         $this->update(['options' => json_encode([$key => $value])]);
+
+        return $this;
+    }
+
+    /**
+     * Add option.
+     */
+    public function addOption(string $key, mixed $value): static
+    {
+        $options = $this->options;
+        if (!is_array($options)) {
+            $options = json_decode($options, true);
+        }
+        $options[] = [$key => $value];
+
+        $this->options = json_encode($options);
+        $this->save();
 
         return $this;
     }
