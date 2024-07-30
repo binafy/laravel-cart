@@ -25,5 +25,9 @@ test('can set option for cart', closure: function () {
     $cart->storeItem($product1);
 
     // Set options
-    $cart->setOption($option);
+    $cart->items()->first()->setOption('size', 34);
+
+    // DB Assertions
+    assertDatabaseCount('cart_items', 1);
+    \Pest\Laravel\assertDatabaseHas('cart_items', ['options' => $cart->items()->first()->getOption('size')]);
 });
