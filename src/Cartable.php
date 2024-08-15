@@ -4,5 +4,5 @@ namespace Binafy\LaravelCart;
 
 interface Cartable
 {
-    public function getPrice(): int;
+    public function getPrice(): float;
 }
