@@ -32,6 +32,7 @@
 - [Security](#security)
 - [Changelog](#changelog)
 - [License](#license)
+- [Donate](#donate)
 
 <a name="introduction"></a>
 ## Introduction
@@ -47,7 +48,7 @@ The `Laravel Cart` package is an ideal choice for developers looking to implemen
 - Attributes and Options: Define custom attributes and options for cart items to handle variations like size and color.
 - Tax Calculation: Built-in support for tax calculations, enabling automatic tax application based on predefined rules.
 - Discounts and Coupons: Integrate discount codes and coupon functionalities to offer promotions and special offers to customers.
-- Session and Database Storage: Flexible storage options allowing carts to be stored in sessions or the database.
+- Session and Database Storage: Flexible storage options allow carts to be stored in sessions or the database.
 - Events and Listeners: Hook into various cart events with listeners to perform actions like logging or triggering additional business logic.
 - Customizable: Extend and customize the core functionalities to meet specific business requirements.
 - Easy Integration: Designed to integrate seamlessly with existing Laravel projects, providing a smooth development experience.
@@ -347,3 +348,12 @@ The changelog can be found in the `CHANGELOG.md` file of the GitHub repository. 
 ## License
 
 The MIT License (MIT). Please see [License File](https://github.com/binafy/laravel-cart/blob/1.x/LICENSE) for more information.
+
+<a name="donate"></a>
+## Donate
+
+If this package is helpful for you, you can buy a coffee for me :) ❤️
+
+- Iraninan Gateway: https://daramet.com/milwad_khosravi
+- Paypal Gateway: SOON
+- MetaMask Address: `0xf208a562c5a93DEf8450b656c3dbc1d0a53BDE58`
