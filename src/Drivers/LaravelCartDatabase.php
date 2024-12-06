@@ -70,10 +70,7 @@ class LaravelCartDatabase implements Driver
     {
         $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $itemToDelete = $cart->items()->find($item->getKey());
-
-        if ($itemToDelete) {
-            $itemToDelete->delete();
-        }
+        $itemToDelete?->delete();
 
         return $this;
     }
