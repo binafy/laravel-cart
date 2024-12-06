@@ -1,0 +1,157 @@
+<?php
+
+namespace Binafy\LaravelCart\Drivers;
+
+use Illuminate\Database\Eloquent\Model;
+
+class LaravelCartSession implements Driver
+{
+    protected const SESSION_KEY_PREFIX = 'cart_';
+
+    /**
+     * Store item in cart.
+     */
+    public function storeItem(Model|array $item, ?int $userId = null): static
+    {
+        $userId = $this->resolveUserId($userId);
+        $cart = $this->getCart($userId);
+        $item = $this->formatItem($item);
+
+        // Check if item already exists
+        foreach ($cart as &$cartItem) {
+            if ($cartItem['id'] === $item['id'] && $cartItem['type'] === $item['type']) {
+                $cartItem['quantity'] += $item['quantity'];
+                session([$this->sessionKey($userId) => $cart]);
+
+                return $this;
+            }
+        }
+
+        $cart[] = $item;
+        session([$this->sessionKey($userId) => $cart]);
+
+        return $this;
+    }
+
+    /**
+     * Store multiple items in cart.
+     */
+    public function storeItems(array $items, ?int $userId = null): static
+    {
+        foreach ($items as $item) {
+            $this->storeItem($item, $userId);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Increase the quantity of the item.
+     */
+    public function increaseQuantity(Model $item, int $quantity = 1, ?int $userId = null): static
+    {
+        $userId = $this->resolveUserId($userId);
+        $cart = $this->getCart($userId);
+
+        foreach ($cart as &$cartItem) {
+            if ($cartItem['id'] === $item->getKey() && $cartItem['type'] === get_class($item)) {
+                $cartItem['quantity'] += $quantity;
+                session([$this->sessionKey($userId) => $cart]);
+
+                return $this;
+            }
+        }
+
+        throw new \RuntimeException('The item not found');
+    }
+
+    /**
+     * Decrease the quantity of the item.
+     */
+    public function decreaseQuantity(Model $item, int $quantity = 1, ?int $userId = null): static
+    {
+        $userId = $this->resolveUserId($userId);
+        $cart = $this->getCart($userId);
+
+        foreach ($cart as &$cartItem) {
+            if ($cartItem['id'] === $item->getKey() && $cartItem['type'] === get_class($item)) {
+                $cartItem['quantity'] = max(0, $cartItem['quantity'] - $quantity);
+                session([$this->sessionKey($userId) => $cart]);
+
+                return $this;
+            }
+        }
+
+        throw new \RuntimeException('The item not found');
+    }
+
+    /**
+     * Remove a single item from the cart.
+     */
+    public function removeItem(Model $item, ?int $userId = null): static
+    {
+        $userId = $this->resolveUserId($userId);
+        $cart = array_filter(
+            $this->getCart($userId),
+            fn($cartItem) => $cartItem['id'] !== $item->getKey() || $cartItem['type'] !== get_class($item)
+        );
+
+        session([$this->sessionKey($userId) => $cart]);
+
+        return $this;
+    }
+
+    /**
+     * Remove every item from the cart.
+     */
+    public function emptyCart(?int $userId = null): static
+    {
+        $userId = $this->resolveUserId($userId);
+        session([$this->sessionKey($userId) => []]);
+
+        return $this;
+    }
+
+    /**
+     * Get the cart from the session.
+     */
+    protected function getCart(?int $userId = null): array
+    {
+        $userId = $this->resolveUserId($userId);
+
+        return session($this->sessionKey($userId), []);
+    }
+
+    /**
+     * Resolve the session key for a user.
+     */
+    protected function sessionKey(int $userId): string
+    {
+        return self::SESSION_KEY_PREFIX . $userId;
+    }
+
+    /**
+     * Resolve the user ID, defaulting to the authenticated user.
+     */
+    protected function resolveUserId(?int $userId): int
+    {
+        return $userId ?? auth()->id();
+    }
+
+    /**
+     * Format an item for storage.
+     */
+    protected function formatItem(Model|array $item): array
+    {
+        if ($item instanceof Model) {
+            return [
+                'id' => $item->getKey(),
+                'type' => get_class($item),
+                'quantity' => 1,
+                'attributes' => $item->toArray(),
+            ];
+        }
+
+        return $item;
+    }
+}
