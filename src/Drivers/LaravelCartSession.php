@@ -98,10 +98,8 @@ class LaravelCartSession implements Driver
     public function removeItem(Model $item, ?int $userId = null): static
     {
         $userId = $this->resolveUserId($userId);
-        $cart = array_filter(
-            $this->getCart($userId),
-            fn($cartItem) => $cartItem['id'] !== $item->getKey() || $cartItem['type'] !== get_class($item)
-        );
+        $cart = $this->getCart($userId);
+        $cart = array_filter($cart, fn ($cartItem) => $cartItem['itemable_id'] !== $item->getKey());
 
         session([$this->sessionKey($userId) => $cart]);
 
