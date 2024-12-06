@@ -12,11 +12,7 @@ class LaravelCartDatabase implements Driver
      */
     public function storeItem(Model|array $item, ?int $userId = null): static
     {
-        if (is_null($userId)) {
-            $userId = auth()->id();
-        }
-
-        $cart = Cart::query()->firstOrCreate(['user_id' => $userId]);
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $cart->storeItem($item);
 
         return $this;
@@ -25,9 +21,9 @@ class LaravelCartDatabase implements Driver
     /**
      * Store multiple items in cart.
      */
-    public function storeItems(array $items): static
+    public function storeItems(array $items, ?int $userId = null): static
     {
-        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $cart->storeItems($items);
 
         return $this;
@@ -36,9 +32,9 @@ class LaravelCartDatabase implements Driver
     /**
      * Increase the quantity of the item.
      */
-    public function increaseQuantity(Model $item, int $quantity = 1): static
+    public function increaseQuantity(Model $item, int $quantity = 1, ?int $userId = null): static
     {
-        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $item = $cart->items()->firstWhere('itemable_id', $item->getKey());
 
         if (! $item) {
@@ -53,9 +49,9 @@ class LaravelCartDatabase implements Driver
     /**
      * Decrease the quantity of the item.
      */
-    public function decreaseQuantity(Model $item, int $quantity = 1): static
+    public function decreaseQuantity(Model $item, int $quantity = 1, ?int $userId = null): static
     {
-        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $item = $cart->items()->firstWhere('itemable_id', $item->getKey());
 
         if (! $item) {
@@ -70,14 +66,11 @@ class LaravelCartDatabase implements Driver
     /**
      * Remove a single item from the cart
      */
-    public function removeItem(Model $item): static
+    public function removeItem(Model $item, ?int $userId = null): static
     {
-        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $itemToDelete = $cart->items()->find($item->getKey());
-
-        if ($itemToDelete) {
-            $itemToDelete->delete();
-        }
+        $itemToDelete?->delete();
 
         return $this;
     }
@@ -85,11 +78,19 @@ class LaravelCartDatabase implements Driver
     /**
      * Remove every item from the cart
      */
-    public function emptyCart(): static
+    public function emptyCart(?int $userId = null): static
     {
-        $cart = Cart::query()->firstOrCreate(['user_id' => auth()->id()]);
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $cart->emptyCart();
 
         return $this;
+    }
+
+    /**
+     * Resolve the user ID, defaulting to the authenticated user.
+     */
+    protected function resolveUserId(?int $userId): int
+    {
+        return $userId ?? auth()->id();
     }
 }

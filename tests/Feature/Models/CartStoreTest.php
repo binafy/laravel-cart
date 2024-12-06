@@ -1,5 +1,6 @@
 <?php
 
+use Binafy\LaravelCart\Cartable;
 use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Models\Cart;
 use Binafy\LaravelCart\Models\CartItem;
@@ -223,4 +224,4 @@ test('can not store product in cart when item is not instance of cartable', func
 
     // Event Assertion
     Event::assertNotDispatched(LaravelCartStoreItemEvent::class);
-})->expectExceptionMessage('The item must be an instance of Cartable');
+})->expectExceptionMessage(sprintf('The item must be an instance of %s', Cartable::class));
