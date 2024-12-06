@@ -61,7 +61,7 @@ class LaravelCartSession implements Driver
         $cart = $this->getCart($userId);
 
         foreach ($cart as &$cartItem) {
-            if ($cartItem['id'] === $item->getKey() && $cartItem['type'] === get_class($item)) {
+            if ($cartItem['itemable_id'] === $item->getKey() && $cartItem['itemable_type'] === get_class($item)) {
                 $cartItem['quantity'] += $quantity;
                 session([$this->sessionKey($userId) => $cart]);
 
@@ -81,8 +81,8 @@ class LaravelCartSession implements Driver
         $cart = $this->getCart($userId);
 
         foreach ($cart as &$cartItem) {
-            if ($cartItem['id'] === $item->getKey() && $cartItem['type'] === get_class($item)) {
-                $cartItem['quantity'] = max(0, $cartItem['quantity'] - $quantity);
+            if ($cartItem['itemable_id'] === $item->getKey() && $cartItem['itemable_type'] === get_class($item)) {
+                $cartItem['quantity'] = max($cartItem['quantity'] - $quantity, 0);
                 session([$this->sessionKey($userId) => $cart]);
 
                 return $this;
