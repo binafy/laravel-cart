@@ -132,7 +132,7 @@ class LaravelCartSession implements Driver
      */
     protected function sessionKey(int $userId): string
     {
-        return self::SESSION_KEY_PREFIX . $userId;
+        return self::SESSION_KEY_PREFIX.$userId;
     }
 
     /**

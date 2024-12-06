@@ -2,11 +2,8 @@
 
 use Binafy\LaravelCart\LaravelCart;
 use Binafy\LaravelCart\Models\Cart;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
-
-use function Pest\Laravel\assertDatabaseCount;
 
 test('can remove an item from the cart with facade', function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);

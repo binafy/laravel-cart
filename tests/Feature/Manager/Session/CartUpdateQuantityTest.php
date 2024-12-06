@@ -2,13 +2,9 @@
 
 use Binafy\LaravelCart\LaravelCart;
 use Binafy\LaravelCart\Models\Cart;
-use Binafy\LaravelCart\Models\CartItem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
-
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertDatabaseMissing;
 
 /*
  * Use `RefreshDatabase` for delete migration data for each test.
@@ -47,12 +43,12 @@ test('can decrease quantity of the item in cart with facade', function () {
         'quantity' => 3,
     ], 2);
 
-    expect(session("cart_2")[0]['quantity'])->toBe(3);
+    expect(session('cart_2')[0]['quantity'])->toBe(3);
 
     // Increase quantity
     LaravelCart::driver('session')->decreaseQuantity($product, 2, 2);
 
-    expect(session("cart_2")[0]['quantity'])->toBe(1);
+    expect(session('cart_2')[0]['quantity'])->toBe(1);
 });
 
 test('can not increase quantity of the item in cart with facade when item not found', function () {
@@ -68,12 +64,12 @@ test('can not increase quantity of the item in cart with facade when item not fo
         'quantity' => 1,
     ], 2);
 
-    expect(session("cart_2")[0]['quantity'])->toBe(1);
+    expect(session('cart_2')[0]['quantity'])->toBe(1);
 
     // Increase quantity
     LaravelCart::driver('session')->increaseQuantity($product2, 2);
 
-    expect(session("cart_2")[0]['quantity'])->toBe(1);
+    expect(session('cart_2')[0]['quantity'])->toBe(1);
 })->expectExceptionMessage('The item not found');
 
 test('can not decrease quantity of the item in cart with facade when item not found', function () {
@@ -89,10 +85,10 @@ test('can not decrease quantity of the item in cart with facade when item not fo
         'quantity' => 3,
     ], 2);
 
-    expect(session("cart_2")[0]['quantity'])->toBe(3);
+    expect(session('cart_2')[0]['quantity'])->toBe(3);
 
     // Decrease quantity
     LaravelCart::driver('session')->decreaseQuantity($product2, 2);
 
-    expect(session("cart_2")[0]['quantity'])->toBe(3);
+    expect(session('cart_2')[0]['quantity'])->toBe(3);
 })->expectExceptionMessage('The item not found');
