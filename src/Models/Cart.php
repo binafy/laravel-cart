@@ -120,14 +120,18 @@ class Cart extends Model
             if ($item['itemable'] instanceof Cartable) {
                 $this->items()->create($item);
             } else {
-                throw new \RuntimeException('The item must be an instance of Cartable');
+                throw new \RuntimeException(sprintf('The item must be an instance of %s', Cartable::class));
             }
         } else {
-            $this->items()->create([
-                'itemable_id' => $item->getKey(),
-                'itemable_type' => get_class($item),
-                'itemable_quantity' => 1,
-            ]);
+            if ($item instanceof Cartable) {
+                $this->items()->create([
+                    'itemable_id' => $item->getKey(),
+                    'itemable_type' => get_class($item),
+                    'itemable_quantity' => 1,
+                ]);
+            } else {
+                throw new \RuntimeException(sprintf('The item must be an instance of %s', Cartable::class));
+            }
         }
 
         // Dispatch Event

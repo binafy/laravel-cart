@@ -2,6 +2,7 @@
 
 namespace Binafy\LaravelCart\Drivers;
 
+use Binafy\LaravelCart\Cartable;
 use Illuminate\Database\Eloquent\Model;
 
 class LaravelCartSession implements Driver
@@ -15,20 +16,26 @@ class LaravelCartSession implements Driver
     {
         $userId = $this->resolveUserId($userId);
         $cart = $this->getCart($userId);
-        $item = $this->formatItem($item);
 
-        // Check if item already exists
-        foreach ($cart as &$cartItem) {
-            if ($cartItem['id'] === $item['id'] && $cartItem['type'] === $item['type']) {
-                $cartItem['quantity'] += $item['quantity'];
+        if (is_array($item)) {
+            $item['itemable_id'] = $item['itemable']->getKey();
+            $item['itemable_type'] = get_class($item['itemable']);
+            $item['quantity'] = (int) $item['quantity'];
+
+            if ($item['itemable'] instanceof Cartable) {
+                $cart[] = $item;
+
                 session([$this->sessionKey($userId) => $cart]);
+            } else {
+                throw new \RuntimeException(sprintf('The item must be an instance of %s', Cartable::class));
+            }
+        } else {
+            if ($item instanceof Cartable) {
+                $cart[] = $item;
 
-                return $this;
+                session([$this->sessionKey($userId) => $cart]);
             }
         }
-
-        $cart[] = $item;
-        session([$this->sessionKey($userId) => $cart]);
 
         return $this;
     }
