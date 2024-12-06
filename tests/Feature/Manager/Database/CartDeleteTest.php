@@ -88,8 +88,7 @@ test('can empty the cart', function () {
     ];
 
     // Store items to cart
-    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
-    $cart->storeItems($items);
+    LaravelCart::driver('database')->storeItems($items);
 
     assertDatabaseCount('cart_items', 4);
 

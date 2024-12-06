@@ -17,7 +17,8 @@ test('can store product in cart with facade', closure: function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
     $product = Product::query()->create(['title' => 'Product 1']);
 
-    $cart = LaravelCart::driver('database')->storeItem($product, $user->id);
+    // Store item in cart
+    LaravelCart::driver('database')->storeItem($product, $user->id);
 
     // DB Assertions
     assertDatabaseCount('carts', 1);
