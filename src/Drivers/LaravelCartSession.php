@@ -142,23 +142,4 @@ class LaravelCartSession implements Driver
     {
         return $userId ?? auth()->id();
     }
-
-    // @codeCoverageIgnoreStart
-    /**
-     * Format an item for storage.
-     */
-    protected function formatItem(Model|array $item): array
-    {
-        if ($item instanceof Model) {
-            return [
-                'id' => $item->getKey(),
-                'type' => get_class($item),
-                'quantity' => 1,
-                'attributes' => $item->toArray(),
-            ];
-        }
-
-        return $item;
-    }
-    // @codeCoverageIgnoreEnd
 }
