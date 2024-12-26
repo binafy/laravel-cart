@@ -26,6 +26,8 @@ class CartItem extends Model
         $this->table = config('laravel-cart.cart_items.table', 'cart_items');
     }
 
+    // Methods
+
     /**
      * Get option.
      */
@@ -71,6 +73,8 @@ class CartItem extends Model
 
         return $this;
     }
+
+    // Relations
 
     /**
      * Relation polymorphic, inverse one-to-one or many relationship.
