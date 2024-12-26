@@ -59,11 +59,12 @@ class CartItem extends Model
      */
     public function addOption(string $key, mixed $value): static
     {
-        $options = $this->options;
-        if (!is_array($options)) {
+        $options = $this->getOptions();
+        if (! is_array($options)) {
             $options = json_decode($options, true);
         }
-        $options[] = [$key => $value];
+
+        $options[$key] = $value;
 
         $this->options = json_encode($options);
         $this->save();
