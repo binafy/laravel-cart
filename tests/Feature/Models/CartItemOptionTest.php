@@ -34,3 +34,21 @@ test('can set option for cart', closure: function () {
     // DB Assertions
     assertDatabaseCount('cart_items', 1);
 });
+
+test('can get all option of one items', closure: function () {
+    $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
+    $product1 = Product::query()->create(['title' => 'Product 1']);
+
+    // Store items to cart
+    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
+    $cart->storeItem($product1);
+
+    // Set options
+    $cart->items()->first()->setOption('size', 34);
+
+    // Assertions
+    expect($cart->items()->first()->getOptions())->toBe(['size' => 34]);
+
+    // DB Assertions
+    assertDatabaseCount('cart_items', 1);
+});
