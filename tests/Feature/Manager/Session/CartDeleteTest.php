@@ -2,16 +2,8 @@
 
 use Binafy\LaravelCart\LaravelCart;
 use Binafy\LaravelCart\Models\Cart;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
-
-use function Pest\Laravel\assertDatabaseCount;
-
-/*
- * Use `RefreshDatabase` for delete migration data for each test.
- */
-uses(RefreshDatabase::class);
 
 test('can remove an item from the cart with facade', function () {
     $user = User::query()->create(['name' => 'Milwad', 'email' => 'milwad.dev@gmail.comd']);
@@ -42,21 +34,19 @@ test('can remove an item from the cart with facade', function () {
     ];
 
     // Store items to cart
-    $cart = Cart::query()->firstOrCreate(['user_id' => $user->id]);
-    $cart->storeItems($items);
+    LaravelCart::driver('session')->storeItems($items);
 
     // Delete Item from cart
-    LaravelCart::driver('database')->removeItem($product1);
+    LaravelCart::driver('session')->removeItem($product1);
 
-    // DB Assertions
-    assertDatabaseCount('carts', 1);
-    assertDatabaseCount('cart_items', 3);
+    // Assertions
+    expect(count(session("cart_$user->id")))->toBe(3);
 
-    LaravelCart::driver('database')->removeItem($product2);
-    assertDatabaseCount('cart_items', 2);
+    LaravelCart::driver('session')->removeItem($product2);
+    expect(count(session("cart_$user->id")))->toBe(2);
 
-    LaravelCart::driver('database')->removeItem($product1);
-    assertDatabaseCount('cart_items', 2);
+    LaravelCart::driver('session')->removeItem($product1);
+    expect(count(session("cart_$user->id")))->toBe(2);
 });
 
 test('can empty the cart', function () {
@@ -88,11 +78,10 @@ test('can empty the cart', function () {
     ];
 
     // Store items to cart
-    LaravelCart::driver('database')->storeItems($items);
-
-    assertDatabaseCount('cart_items', 4);
+    LaravelCart::driver('session')->storeItems($items);
+    expect(count(session("cart_$user->id")))->toBe(4);
 
     // Remove all items from cart
-    LaravelCart::driver('database')->emptyCart();
-    assertDatabaseCount('cart_items', 0);
+    LaravelCart::driver('session')->emptyCart();
+    expect(count(session("cart_$user->id")))->toBe(0);
 });

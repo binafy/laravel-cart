@@ -17,8 +17,8 @@ class Product extends Model implements Cartable
     /**
      * Get the correct price.
      */
-    public function getPrice(): int
+    public function getPrice(): float
     {
-        return $this->price;
+        return (float) $this->price;
     }
 }

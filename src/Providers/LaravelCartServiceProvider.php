@@ -32,8 +32,14 @@ class LaravelCartServiceProvider extends ServiceProvider
         ], 'laravel-cart-config');
 
         // Publish Migrations
-        $this->publishes([
-            __DIR__.'/../../database/migrations' => database_path('migrations'),
-        ], 'laravel-cart-migrations');
+        if (version_compare(Application::VERSION, '11.0.0', '<')) {
+            $this->publishes([
+                __DIR__.'/../../database/migrations' => database_path('migrations'),
+            ], 'laravel-cart-migrations');
+        } else {
+            $this->publishesMigrations([
+                __DIR__.'/../../database/migrations' => database_path('migrations'),
+            ], 'laravel-cart-migrations');
+        }
     }
 }

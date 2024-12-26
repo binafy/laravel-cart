@@ -3,6 +3,7 @@
 namespace Binafy\LaravelCart\Manager;
 
 use Binafy\LaravelCart\Drivers\LaravelCartDatabase;
+use Binafy\LaravelCart\Drivers\LaravelCartSession;
 use Illuminate\Support\Manager;
 
 class LaravelCartManager extends Manager
@@ -21,5 +22,13 @@ class LaravelCartManager extends Manager
     public function createDatabaseDriver(): LaravelCartDatabase
     {
         return new LaravelCartDatabase;
+    }
+
+    /**
+     * The session driver of laravel cart.
+     */
+    public function createSessionDriver(): LaravelCartSession
+    {
+        return new LaravelCartSession;
     }
 }
