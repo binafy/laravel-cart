@@ -10,6 +10,7 @@ use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
 
 use function Pest\Laravel\assertDatabaseCount;
+use function Pest\Laravel\assertDatabaseHas;
 
 /*
  * Use `RefreshDatabase` for delete migration data for each test.
@@ -27,7 +28,9 @@ test('can set option for cart', closure: function () {
     // Set options
     $cart->items()->first()->setOption('size', 34);
 
+    // Assertions
+    expect($cart->items()->first()->getOption('size'))->toBe(34);
+
     // DB Assertions
     assertDatabaseCount('cart_items', 1);
-    \Pest\Laravel\assertDatabaseHas('cart_items', ['options' => $cart->items()->first()->getOption('size')]);
 });
