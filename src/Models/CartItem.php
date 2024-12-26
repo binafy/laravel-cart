@@ -14,7 +14,7 @@ class CartItem extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['cart_id', 'itemable_id', 'itemable_type', 'quantity'];
+    protected $guarded = ['id'];
 
     /**
      * Create a new instance of the model.
@@ -25,6 +25,56 @@ class CartItem extends Model
 
         $this->table = config('laravel-cart.cart_items.table', 'cart_items');
     }
+
+    // Methods
+
+    /**
+     * Get option.
+     */
+    public function getOption(string $option): mixed
+    {
+        $options = json_decode($this->options, true);
+
+        return $options[$option] ?? null;
+    }
+
+    /**
+     * Get options.
+     */
+    public function getOptions(): mixed
+    {
+        return json_decode($this->options, true);
+    }
+
+    /**
+     * Set option.
+     */
+    public function setOption(string $key, mixed $value): static
+    {
+        $this->update(['options' => json_encode([$key => $value])]);
+
+        return $this;
+    }
+
+    /**
+     * Add option.
+     */
+    public function addOption(string $key, mixed $value): static
+    {
+        $options = $this->getOptions();
+        if (! is_array($options)) {
+            $options = json_decode($options, true);
+        }
+
+        $options[$key] = $value;
+
+        $this->options = json_encode($options);
+        $this->save();
+
+        return $this;
+    }
+
+    // Relations
 
     /**
      * Relation polymorphic, inverse one-to-one or many relationship.

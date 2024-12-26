@@ -3,6 +3,7 @@
 namespace Binafy\LaravelCart\Drivers;
 
 use Binafy\LaravelCart\Models\Cart;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class LaravelCartDatabase implements Driver
@@ -82,6 +83,62 @@ class LaravelCartDatabase implements Driver
     {
         $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
         $cart->emptyCart();
+
+        return $this;
+    }
+
+    /**
+     * Get option for item.
+     */
+    public function getOption(string $option, ?int $itemId = null, ?int $userId = null): mixed
+    {
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
+        $items = $cart->items()->when(! is_null($itemId), function (Builder $builder) use ($itemId) {
+            $builder->where('id', $itemId);
+        });
+
+        return $items->first()->getOption($option);
+    }
+
+    /**
+     * Get all options of one item.
+     */
+    public function getOptions(?int $itemId = null, ?int $userId = null): mixed
+    {
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
+        $items = $cart->items()->when(! is_null($itemId), function (Builder $builder) use ($itemId) {
+            $builder->where('id', $itemId);
+        });
+
+        return $items->first()->getOptions();
+    }
+
+    /**
+     * Set option for item.
+     */
+    public function setOption(string $key, mixed $value, ?int $itemId = null, ?int $userId = null): static
+    {
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
+        $items = $cart->items()->when(! is_null($itemId), function (Builder $builder) use ($itemId) {
+            $builder->where('id', $itemId);
+        });
+
+        $items->first()->setOption($key, $value);
+
+        return $this;
+    }
+
+    /**
+     * Get option for item.
+     */
+    public function addOption(string $key, mixed $value, ?int $itemId = null, ?int $userId = null): static
+    {
+        $cart = Cart::query()->firstOrCreate(['user_id' => $this->resolveUserId($userId)]);
+        $items = $cart->items()->when(! is_null($itemId), function (Builder $builder) use ($itemId) {
+            $builder->where('id', $itemId);
+        });
+
+        $items->first()->addOption($key, $value);
 
         return $this;
     }
