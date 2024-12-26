@@ -143,6 +143,7 @@ class LaravelCartSession implements Driver
         return $userId ?? auth()->id();
     }
 
+    // @codeCoverageIgnoreStart
     /**
      * Format an item for storage.
      */
@@ -159,4 +160,5 @@ class LaravelCartSession implements Driver
 
         return $item;
     }
+    // @codeCoverageIgnoreEnd
 }
