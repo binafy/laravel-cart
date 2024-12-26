@@ -1,16 +1,11 @@
 <?php
 
-use Binafy\LaravelCart\Events\LaravelCartEmptyEvent;
-use Binafy\LaravelCart\Events\LaravelCartRemoveItemEvent;
-use Binafy\LaravelCart\Events\LaravelCartStoreItemEvent;
 use Binafy\LaravelCart\Models\Cart;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Event;
 use Tests\SetUp\Models\Product;
 use Tests\SetUp\Models\User;
 
 use function Pest\Laravel\assertDatabaseCount;
-use function Pest\Laravel\assertDatabaseHas;
 
 /*
  * Use `RefreshDatabase` for delete migration data for each test.
