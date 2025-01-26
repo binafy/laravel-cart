@@ -12,6 +12,7 @@ use Tests\SetUp\Models\User;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
+use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertInstanceOf;
 
 /*
@@ -188,11 +189,20 @@ test('get correct price with calculated quantity', function () {
     $cart->storeItems($items);
 
     // Assertions
-    \PHPUnit\Framework\assertEquals(230000, $cart->calculatedPriceByQuantity());
+    assertEquals(230000, $cart->calculatedPriceByQuantity());
+
+    // Float
+    $cart->storeItems([
+        [
+            'itemable' => Product::query()->create(['title' => 'Product float', 'price' => 15000.3]),
+            'quantity' => 2,
+        ],
+    ]);
+    assertEquals(260000.6, $cart->calculatedPriceByQuantity());
 
     // DB Assertions
     assertDatabaseCount('carts', 1);
-    assertDatabaseCount('cart_items', 3);
+    assertDatabaseCount('cart_items', 4);
     assertDatabaseHas('cart_items', [
         'itemable_id' => $product1->id,
         'itemable_type' => $product1::class,
