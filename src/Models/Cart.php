@@ -85,11 +85,11 @@ class Cart extends Model
     /**
      * Calculate price by quantity of items.
      */
-    public function calculatedPriceByQuantity(): int
+    public function calculatedPriceByQuantity(): float
     {
         $totalPrice = 0;
         foreach ($this->items()->get() as $item) {
-            $totalPrice += (int) $item->quantity * (int) $item->itemable->getPrice();
+            $totalPrice += (int) $item->quantity * (float) $item->itemable->getPrice();
         }
 
         return $totalPrice;
