@@ -196,7 +196,7 @@ test('get correct price with calculated quantity', function () {
         [
             'itemable' => Product::query()->create(['title' => 'Product float', 'price' => 15000.3]),
             'quantity' => 2,
-        ]
+        ],
     ]);
     assertEquals(260000.6, $cart->calculatedPriceByQuantity());
 
