@@ -9,11 +9,10 @@ use Illuminate\Support\ServiceProvider;
 class LaravelCartServiceProvider extends ServiceProvider
 {
     /**
-     * Register files.
+     * Register any application services.
      */
     public function register(): void
     {
-        $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
         $this->mergeConfigFrom(__DIR__.'/../../config/laravel-cart.php', 'laravel-cart');
 
         $this->app->bind('laravel-cart', function (Application $app) {
