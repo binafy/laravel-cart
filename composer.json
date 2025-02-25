@@ -14,7 +14,10 @@
         "laravel-cart-shop",
         "laravel-shop",
         "laravel e-commerce",
-        "laravel basket"
+        "laravel basket",
+        "laravel shopping",
+        "laravel shopping cart",
+        "laravelshoppingcart"
     ],
     "type": "library",
     "license": "MIT",
