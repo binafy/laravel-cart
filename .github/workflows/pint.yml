@@ -1,31 +1,28 @@
-name: Fix Code Style
+name: Laravel Pint
 
-on: [push]
+on:
+    push:
+    pull_request:
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        php: [8.0]
+    lint:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+                with:
+                    fetch-depth: 0  # Fetch all history for all branches
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: json, dom, curl, libxml, mbstring
-          coverage: none
+            -   name: Run Laravel Pint
+                run: |
+                    composer install
+                    ./vendor/bin/pint
 
-      - name: Install Pint
-        run: composer global require laravel/pint
-
-      - name: Run Pint
-        run: pint
-
-      - name: Commit linted files
-        uses: stefanzweifel/git-auto-commit-action@v5
+            -   name: Commit changes
+                uses: stefanzweifel/git-auto-commit-action@v5
+                with:
+                    add_options: '.'
+                    commit_message: 'Apply automatic changes'
+                    commit_user_name: 'github-actions[bot]'
+                    push_options: '--force'
