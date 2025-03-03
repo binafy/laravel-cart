@@ -62,7 +62,7 @@
         }
     },
     "scripts": {
-        "pint": "vendor/bin/pint",
+        "pint": "vendor/bin/pint .github config database src tests",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage-html ./coverage"
     },
