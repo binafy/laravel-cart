@@ -175,7 +175,7 @@ class Cart extends Model
      */
     public function increaseQuantity(Model $item, int $quantity = 1): static
     {
-        $item = $this->items()->firstWhere('itemable_id', $item->getKey());
+        $item = $this->items()->find($item->getKey());
         if (! $item) {
             throw new \RuntimeException('The item not found');
         }
