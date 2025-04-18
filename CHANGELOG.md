@@ -1,5 +1,13 @@
 ChangeLog
 
+## v1.2.1 - 2025-04-18
+
+### What's Changed
+
+* [1.x] WIP by [@milwad-dev](https://github.com/milwad-dev) in https://github.com/binafy/laravel-cart/pull/39
+
+**Full Changelog**: https://github.com/binafy/laravel-cart/compare/v1.2.0...v1.2.1
+
 ## v1.2.0 - 2025-02-25
 
 ### What's Changed
