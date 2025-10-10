@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     /**
-     * Fillable columns.
+     * Guarded columns.
      *
-     * @var string[]
+     * @var array
      */
-    protected $fillable = ['user_id'];
+    protected $guarded = ['id'];
 
     /**
      * The relations to eager load on every query.
