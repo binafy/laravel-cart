@@ -22,15 +22,15 @@ return new class extends Migration
             $table->foreignId($userForeignName)->constrained($userTableName)->cascadeOnDelete();
 
             if ($type === 'ulid') {
-                $table->foreignUlid($$userForeignName)
+                $table->foreignUlid($userForeignName)
                     ->constrained($userTableName)
                     ->cascadeOnDelete();
             } else if ($type === 'uuid') {
-                $table->foreignUuid($$userForeignName)
+                $table->foreignUuid($userForeignName)
                     ->constrained($userTableName)
                     ->cascadeOnDelete();
             } else {
-                $table->foreignId($$userForeignName)
+                $table->foreignId($userForeignName)
                     ->constrained($userTableName)
                     ->cascadeOnDelete();
             }
