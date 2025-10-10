@@ -19,8 +19,6 @@ return new class extends Migration
         Schema::create($table, function (Blueprint $table) use ($userTableName, $userForeignName, $type) {
             $table->id();
 
-            $table->foreignId($userForeignName)->constrained($userTableName)->cascadeOnDelete();
-
             if ($type === 'ulid') {
                 $table->foreignUlid($userForeignName)
                     ->constrained($userTableName)
