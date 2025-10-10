@@ -14,6 +14,7 @@
 - [Publish](#publish)
 - [Usage](#usage)
     - [Configuration](#configuration)
+      - [User Configuration](#user-configuration) 
     - [Laravel Cart Facade](#laravel-cart-facade)
       - [Driver](#driver)
       - [Support Drivers](#support-drivers)
@@ -92,6 +93,23 @@ After publishing, run the `php artisan migrate` command.
 ### Configuration
 
 You can config the `Laravel Cart` with `laravel-cart.php` config that exists in `config` folder.
+
+<a name="user-configuration"></a>
+#### User Configuration
+
+If you are using `uuid` or `ulid`, you can change `foreign_key_type` to your correct foreign key type:
+
+```php
+'users' => [
+    ...
+
+    /*
+     * Specify the type of foreign key being used (e.g., 'id', 'uuid', 'ulid').
+     * For non-standard IDs, make sure to add the relevant traits to your models.
+     */
+    'foreign_key_type' => 'id', // Options: uuid, ulid, id
+],
+```
 
 <a name="laravel-cart-facade"></a>
 ### Laravel Cart Facade

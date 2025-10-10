@@ -14,11 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     /**
-     * Fillable columns.
+     * Guarded columns.
      *
-     * @var string[]
+     * @var array
      */
-    protected $fillable = ['user_id'];
+    protected $guarded = ['id'];
 
     /**
      * The relations to eager load on every query.
@@ -56,7 +56,7 @@ class Cart extends Model
         Builder $query,
         Model $item,
         int $quantity = 1,
-        ?int $userId = null
+        ?string $userId = null
     ): Builder {
         if (is_null($userId)) {
             $userId = auth()->id();

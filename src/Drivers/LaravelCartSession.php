@@ -12,7 +12,7 @@ class LaravelCartSession implements Driver
     /**
      * Store item in cart.
      */
-    public function storeItem(Model|array $item, ?int $userId = null): static
+    public function storeItem(Model|array $item, ?string $userId = null): static
     {
         $userId = $this->resolveUserId($userId);
         $cart = $this->getCart($userId);
@@ -43,7 +43,7 @@ class LaravelCartSession implements Driver
     /**
      * Store multiple items in cart.
      */
-    public function storeItems(array $items, ?int $userId = null): static
+    public function storeItems(array $items, ?string $userId = null): static
     {
         foreach ($items as $item) {
             $this->storeItem($item, $userId);
@@ -55,7 +55,7 @@ class LaravelCartSession implements Driver
     /**
      * Increase the quantity of the item.
      */
-    public function increaseQuantity(Model $item, int $quantity = 1, ?int $userId = null): static
+    public function increaseQuantity(Model $item, int $quantity = 1, ?string $userId = null): static
     {
         $userId = $this->resolveUserId($userId);
         $cart = $this->getCart($userId);
@@ -75,7 +75,7 @@ class LaravelCartSession implements Driver
     /**
      * Decrease the quantity of the item.
      */
-    public function decreaseQuantity(Model $item, int $quantity = 1, ?int $userId = null): static
+    public function decreaseQuantity(Model $item, int $quantity = 1, ?string $userId = null): static
     {
         $userId = $this->resolveUserId($userId);
         $cart = $this->getCart($userId);
@@ -95,7 +95,7 @@ class LaravelCartSession implements Driver
     /**
      * Remove a single item from the cart.
      */
-    public function removeItem(Model $item, ?int $userId = null): static
+    public function removeItem(Model $item, ?string $userId = null): static
     {
         $userId = $this->resolveUserId($userId);
         $cart = $this->getCart($userId);
@@ -109,7 +109,7 @@ class LaravelCartSession implements Driver
     /**
      * Remove every item from the cart.
      */
-    public function emptyCart(?int $userId = null): static
+    public function emptyCart(?string $userId = null): static
     {
         $userId = $this->resolveUserId($userId);
         session([$this->sessionKey($userId) => []]);
@@ -120,7 +120,7 @@ class LaravelCartSession implements Driver
     /**
      * Get the cart from the session.
      */
-    protected function getCart(?int $userId = null): array
+    protected function getCart(?string $userId = null): array
     {
         $userId = $this->resolveUserId($userId);
 
@@ -130,7 +130,7 @@ class LaravelCartSession implements Driver
     /**
      * Resolve the session key for a user.
      */
-    protected function sessionKey(int $userId): string
+    protected function sessionKey(string $userId): string
     {
         return self::SESSION_KEY_PREFIX.$userId;
     }
@@ -138,7 +138,7 @@ class LaravelCartSession implements Driver
     /**
      * Resolve the user ID, defaulting to the authenticated user.
      */
-    protected function resolveUserId(?int $userId): int
+    protected function resolveUserId(?string $userId): string
     {
         return $userId ?? auth()->id();
     }

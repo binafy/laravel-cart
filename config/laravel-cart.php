@@ -16,6 +16,12 @@ return [
          * The user foreign key.
          */
         'foreign_id' => 'user_id',
+
+        /*
+         * Specify the type of foreign key being used (e.g., 'id', 'uuid', 'ulid').
+         * For non-standard IDs, make sure to add the relevant traits to your models.
+         */
+        'foreign_key_type' => 'id', // Options: uuid, ulid, id
     ],
 
     /*

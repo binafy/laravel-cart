@@ -13,12 +13,25 @@ return new class extends Migration
     {
         $userTableName = config('laravel-cart.users.table', 'users');
         $userForeignName = config('laravel-cart.users.foreign_id', 'user_id');
+        $type = config('laravel-cart.users.foreign_key_type', 'id');
         $table = config('laravel-cart.carts.table', 'carts');
 
-        Schema::create($table, function (Blueprint $table) use ($userTableName, $userForeignName) {
+        Schema::create($table, function (Blueprint $table) use ($userTableName, $userForeignName, $type) {
             $table->id();
 
-            $table->foreignId($userForeignName)->constrained($userTableName)->cascadeOnDelete();
+            if ($type === 'ulid') {
+                $table->foreignUlid($userForeignName)
+                    ->constrained($userTableName)
+                    ->cascadeOnDelete();
+            } else if ($type === 'uuid') {
+                $table->foreignUuid($userForeignName)
+                    ->constrained($userTableName)
+                    ->cascadeOnDelete();
+            } else {
+                $table->foreignId($userForeignName)
+                    ->constrained($userTableName)
+                    ->cascadeOnDelete();
+            }
 
             $table->timestamps();
         });
