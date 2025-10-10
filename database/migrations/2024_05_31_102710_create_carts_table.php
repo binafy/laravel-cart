@@ -23,7 +23,7 @@ return new class extends Migration
                 $table->foreignUlid($userForeignName)
                     ->constrained($userTableName)
                     ->cascadeOnDelete();
-            } else if ($type === 'uuid') {
+            } elseif ($type === 'uuid') {
                 $table->foreignUuid($userForeignName)
                     ->constrained($userTableName)
                     ->cascadeOnDelete();
